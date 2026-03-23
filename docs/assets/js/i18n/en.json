@@ -46,7 +46,10 @@
     "shuffling": "Shuffling...",
     "your_card": "Your Card",
     "ai_guidance": "Stardust's Insight",
+    "reading_subtitle": "Interpreting for you...",
     "draw_again": "Draw Again",
+    "restart": "Draw Again",
+    "try_three_card": "Try Three-Card Reading",
     "free_limit_reached": "Daily free reading used",
     "upgrade_premium": "Upgrade to Premium for unlimited readings",
     "loading_reading": "Stardust is interpreting your card..."

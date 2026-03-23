@@ -203,6 +203,35 @@ function getInlineFallback(locale) {
         contact: '联系我们',
         copyright: '© 2026 星辰 AI 塔罗 · All rights reserved'
       },
+      tarot: {
+        select_question: '选择你想问的问题',
+        draw_card: '点击抽牌',
+        shuffling: '洗牌中...',
+        your_card: '你抽到的牌',
+        ai_guidance: '星辰的解读',
+        reading_subtitle: '正在为你解读...',
+        draw_again: '再次占卜',
+        restart: '重新占卜',
+        try_three_card: '体验三牌占卜',
+        free_limit_reached: '今日免费次数已用完',
+        upgrade_premium: '升级 Premium 解锁无限次',
+        loading_reading: '星辰正在解读你的牌...'
+      },
+      question_types: {
+        daily_luck: '今日感情运势',
+        single_love: '单恋对象',
+        reconciliation: '复合可能性',
+        breakup: '分手困惑'
+      },
+      three_card: {
+        title: '三牌爱情占卜',
+        past: '过去',
+        present: '现在',
+        future: '未来',
+        selectSituation: '选择你的情况',
+        startReading: '开始解读',
+        reading: '解读中...'
+      },
       common: { loading: '加载中...', error: '出错了，请稍后重试' }
     };
   }
@@ -252,7 +281,10 @@ function getInlineFallback(locale) {
       shuffling: 'Shuffling...',
       your_card: 'Your Card',
       ai_guidance: "Stardust's Interpretation",
+      reading_subtitle: 'Interpreting for you...',
       draw_again: 'Draw Again',
+      restart: 'Draw Again',
+      try_three_card: 'Try Three-Card Reading',
       free_limit_reached: 'Daily free limit reached',
       upgrade_premium: 'Upgrade to Premium for unlimited readings',
       loading_reading: "Stardust is interpreting your card..."

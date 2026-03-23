@@ -46,7 +46,10 @@
     "shuffling": "洗牌中...",
     "your_card": "你抽到的牌",
     "ai_guidance": "星辰的解读",
+    "reading_subtitle": "正在为你解读...",
     "draw_again": "再次占卜",
+    "restart": "重新占卜",
+    "try_three_card": "体验三牌占卜",
     "free_limit_reached": "今日免费次数已用完",
     "upgrade_premium": "升级 Premium 解锁无限次",
     "loading_reading": "星辰正在解读你的牌..."
