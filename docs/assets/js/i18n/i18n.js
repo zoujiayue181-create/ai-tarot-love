@@ -39,15 +39,24 @@ function getInitialLocale() {
 /**
  * 加载指定语言的数据
  * @param {string} locale
+ * @param {boolean} forceReload - 强制重新加载（忽略缓存）
  */
-async function loadLocale(locale) {
-  if (LOCALE_DATA[locale]) return; // 已有缓存
+async function loadLocale(locale, forceReload = false) {
+  // 如果有缓存且不是强制重新加载，直接返回
+  if (LOCALE_DATA[locale] && !forceReload) return;
+
+  // 清除可能不完整的缓存
+  if (forceReload) {
+    LOCALE_DATA[locale] = null;
+  }
 
   try {
     // 根据当前页面路径计算相对路径
     const basePath = getBasePath();
-    const response = await fetch(`${basePath}assets/js/i18n/${locale}.json`);
-    if (!response.ok) throw new Error(`Failed to load ${locale} translations`);
+    const url = `${basePath}assets/js/i18n/${locale}.json`;
+    console.log(`[i18n] Fetching translations from: ${url}`);
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`Failed to load ${locale} translations (${response.status})`);
     LOCALE_DATA[locale] = await response.json();
     console.log(`[i18n] Loaded ${locale} translations from network`);
   } catch (err) {
@@ -68,7 +77,10 @@ function getBasePath() {
   const depth = segments.length - 1;
   
   if (depth <= 0) {
-    return '/';
+    // 根路径 - GitHub Pages 部署在子目录，需要包含仓库名
+    // 尝试从 script 标签的 src 反推
+    // 备选方案：硬编码仓库名（适合 GitHub Pages）
+    return '/ai-tarot-love/';
   }
   return '../'.repeat(depth);
 }
@@ -79,7 +91,8 @@ function getBasePath() {
  */
 async function setLocale(locale) {
   if (locale === currentLocale) return;
-  await loadLocale(locale);
+  // 强制重新加载，确保获取最新翻译
+  await loadLocale(locale, true);
   currentLocale = locale;
   window.I18N_DATA = LOCALE_DATA[locale];
   localStorage.setItem('tarot-locale', locale);
@@ -193,7 +206,7 @@ function getInlineFallback(locale) {
       common: { loading: '加载中...', error: '出错了，请稍后重试' }
     };
   }
-  // English fallback
+  // English fallback - 完整版本
   return {
     meta: { lang: 'en', name: 'English' },
     nav: { 
@@ -232,6 +245,32 @@ function getInlineFallback(locale) {
       diff_record_desc: 'Record every reading, see your emotional journey unfold',
       cta_title: 'Ready to Begin?',
       cta_subtitle: 'One free daily reading awaits you'
+    },
+    tarot: {
+      select_question: 'Select Your Question',
+      draw_card: 'Draw a Card',
+      shuffling: 'Shuffling...',
+      your_card: 'Your Card',
+      ai_guidance: "Stardust's Interpretation",
+      draw_again: 'Draw Again',
+      free_limit_reached: 'Daily free limit reached',
+      upgrade_premium: 'Upgrade to Premium for unlimited readings',
+      loading_reading: "Stardust is interpreting your card..."
+    },
+    question_types: {
+      daily_luck: "Today's Love Fortune",
+      single_love: 'Your Crush',
+      reconciliation: 'Chance of Reconciliation',
+      breakup: 'Breakup Confusion'
+    },
+    three_card: {
+      title: 'Three-Card Love Reading',
+      past: 'Past',
+      present: 'Present',
+      future: 'Future',
+      selectSituation: 'Select your situation',
+      startReading: 'Start Reading',
+      reading: 'Interpreting...'
     },
     footer: { 
       privacy: 'Privacy Policy', 
