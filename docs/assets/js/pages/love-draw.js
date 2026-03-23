@@ -98,13 +98,10 @@ const ALL_CARDS = [
   ...MINOR_ARCANA.map(c => ({ ...c, type: 'minor' })),
 ];
 
-// 问题类型 → 读取场景
-const QUESTION_LABELS = {
-  daily_luck:      '今日感情运势',
-  single_love:      '单恋对象',
-  reconciliation:   '复合可能性',
-  breakup_timing:  '脱单时机',
-};
+// 问题类型 → 翻译 key
+function getQuestionLabel(key) {
+  return window.I18N.getI18n('question_types.' + key) || key;
+}
 
 // ============================================
 // 状态
@@ -123,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function initLoveDraw() {
   // 从 URL 参数读取场景
   const scene = getQueryParam('scene');
-  if (scene && QUESTION_LABELS[scene]) {
+  if (scene && getQuestionLabel(scene)) {
     // 自动选中对应问题类型（UI 交互）
     const card = document.querySelector(`[data-question="${scene}"]`);
     if (card) {
@@ -172,7 +169,9 @@ function handleQuestionSelect(question, cardElement) {
   // 更新 deck hint
   const hint = document.getElementById('deckHint');
   if (hint) {
-    hint.textContent = `已选择：${QUESTION_LABELS[question]}，点击抽牌`;
+    const selected = window.I18N.getI18n('tarot.selected') || '已选择';
+    const clickToDraw = window.I18N.getI18n('tarot.click_to_draw') || '点击抽牌';
+    hint.textContent = `${selected}：${getQuestionLabel(question)}，${clickToDraw}`;
   }
 
   // 自动进入下一步（抽牌）
@@ -232,13 +231,14 @@ async function requestAIReading() {
     const response = await window.TarotAPI.requestTarotReading(
       drawnCard.name,
       drawnCard.type,
-      QUESTION_LABELS[selectedQuestion],
-      QUESTION_LABELS[selectedQuestion]
+      getQuestionLabel(selectedQuestion),
+      getQuestionLabel(selectedQuestion)
     );
 
     if (loadingEl) loadingEl.style.display = 'none';
     if (contentEl) contentEl.textContent = response;
-    if (subtitleEl) subtitleEl.textContent = `抽到的牌：${drawnCard.name}`;
+    const cardLabel = window.I18N.getI18n('tarot.your_card') || '你抽到的牌';
+    if (subtitleEl) subtitleEl.textContent = `${cardLabel}：${drawnCard.name}`;
 
   } catch (err) {
     console.error('[love-draw] AI reading error:', err);

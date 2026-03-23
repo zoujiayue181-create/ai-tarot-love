@@ -54,6 +54,8 @@
     "draw_again": "Draw Again",
     "restart": "Draw Again",
     "try_three_card": "Try Three-Card Reading",
+    "selected": "Selected",
+    "click_to_draw": "Click to draw",
     "free_limit_reached": "Daily free reading used",
     "upgrade_premium": "Upgrade to Premium for unlimited readings",
     "loading_reading": "Stardust is interpreting your card..."
@@ -62,7 +64,12 @@
     "main_title": "Three-Card Love Reading",
     "scene_subtitle": "Choose the dimension you most want to understand — Stardust will interpret your Past, Present & Future",
     "draw_instruction": "Draw Three Cards in Order",
-    "draw_hint": "Click the deck to draw your Past · Present · Future"
+    "draw_hint": "Click the deck to draw your Past · Present · Future",
+    "click_to_draw_card": "Click to draw card {n}",
+    "all_cards_drawn": "All cards drawn ✨",
+    "past": "Past",
+    "present": "Present",
+    "future": "Future"
   },
   "question_types": {
     "daily_luck": "Today's Love Fortune",

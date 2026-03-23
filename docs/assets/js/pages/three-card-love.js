@@ -148,9 +148,10 @@ async function handleDraw() {
   const hint = document.getElementById('deckHint');
   if (hint) {
     if (currentDrawIndex < 3) {
-      hint.innerHTML = `点击抽第 <span id="drawIndex">${currentDrawIndex + 1}</span> 张牌`;
+      const clickToDraw = window.I18N.getI18n('three_card.click_to_draw_card') || '点击抽第 {n} 张牌';
+      hint.innerHTML = clickToDraw.replace('{n}', `<span id="drawIndex">${currentDrawIndex + 1}</span>`);
     } else {
-      hint.textContent = '三张牌已抽完 ✨';
+      hint.textContent = window.I18N.getI18n('three_card.all_cards_drawn') || '三张牌已抽完 ✨';
       if (deck) deck.style.opacity = '0.3';
     }
   }
@@ -178,11 +179,13 @@ async function requestAIReading() {
   // 显示三牌摘要
   if (summaryEl) {
     summaryEl.innerHTML = drawnCards.map((card, i) => {
-      const labels = ['🌿 过去', '🌟 现在', '🌙 未来'];
+      const labelKeys = ['three_card.past', 'three_card.present', 'three_card.future'];
+      const emojis = ['🌿', '🌟', '🌙'];
+      const label = (window.I18N.getI18n(labelKeys[i]) || labelKeys[i]) + ' ' + emojis[i];
       return `
         <div class="three-cards-summary__item">
           <span class="three-cards-summary__emoji">${card.emoji}</span>
-          <span class="three-cards-summary__name">${labels[i]}<br>${card.name}</span>
+          <span class="three-cards-summary__name">${label}<br>${card.name}</span>
         </div>`;
     }).join('');
   }
@@ -247,7 +250,10 @@ function restartReading() {
   if (deck) deck.style.opacity = '1';
 
   const hint = document.getElementById('deckHint');
-  if (hint) hint.innerHTML = '点击抽第 <span id="drawIndex">1</span> 张牌';
+  if (hint) {
+    const clickToDraw = window.I18N.getI18n('three_card.click_to_draw_card') || '点击抽第 {n} 张牌';
+    hint.innerHTML = clickToDraw.replace('{n}', '<span id="drawIndex">1</span>');
+  }
 
   document.querySelectorAll('.scene-card').forEach(c => c.classList.remove('selected'));
   const summaryEl = document.getElementById('threeCardsSummary');

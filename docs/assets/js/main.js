@@ -185,6 +185,7 @@ function showLoading(show) {
         z-index: 9998;
         backdrop-filter: blur(4px);
       `;
+      const loadingText = (window.I18N && window.I18N.getI18n('tarot.loading_reading')) || '星辰正在解读...';
       overlay.innerHTML = `
         <div style="text-align:center">
           <div style="
@@ -195,7 +196,7 @@ function showLoading(show) {
             animation:spin 800ms linear infinite;
             margin:0 auto 16px;
           "></div>
-          <p style="color:#C9B8D9;font-size:14px">星辰正在解读...</p>
+          <p style="color:#C9B8D9;font-size:14px">${loadingText}</p>
         </div>
       `;
       const style = document.createElement('style');

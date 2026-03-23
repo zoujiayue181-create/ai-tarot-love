@@ -54,6 +54,8 @@
     "draw_again": "再次占卜",
     "restart": "重新占卜",
     "try_three_card": "体验三牌占卜",
+    "selected": "已选择",
+    "click_to_draw": "点击抽牌",
     "free_limit_reached": "今日免费次数已用完",
     "upgrade_premium": "升级 Premium 解锁无限次",
     "loading_reading": "星辰正在解读你的牌..."
@@ -62,7 +64,12 @@
     "main_title": "三牌爱情占卜",
     "scene_subtitle": "选择你最想了解的维度，星辰将为你解读过去、现在与未来",
     "draw_instruction": "依次抽取三张牌",
-    "draw_hint": "点击牌堆，依次抽取过去 · 现在 · 未来"
+    "draw_hint": "点击牌堆，依次抽取过去 · 现在 · 未来",
+    "click_to_draw_card": "点击抽第 {n} 张牌",
+    "all_cards_drawn": "三张牌已抽完 ✨",
+    "past": "过去",
+    "present": "现在",
+    "future": "未来"
   },
   "question_types": {
     "daily_luck": "今日感情运势",
