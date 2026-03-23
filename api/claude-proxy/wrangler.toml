@@ -3,6 +3,11 @@ main = "index.js"
 compatibility_date = "2024-01-01"
 
 # 环境变量（在 Cloudflare Dashboard 中设置）
-# GEMINI_API_KEY - 你的 Google Gemini API Key（通过 wrangler secret put GEMINI_API_KEY 设置）
+# ZHIPU_API_KEY - 你的智谱 AI API Key（通过 wrangler secret put ZHIPU_API_KEY 设置）
 [vars]
 # CLOUDFLARE_WORKER_URL 将在部署后自动生成
+
+# Worker 路由绑定到 api.tarotforu.shop
+routes = [
+  { pattern = "api.tarotforu.shop", zone_name = "tarotforu.shop" }
+]
