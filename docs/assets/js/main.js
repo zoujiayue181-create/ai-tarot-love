@@ -73,10 +73,10 @@ function getTranslation(key) {
 /**
  * 切换语言
  */
-function switchLanguage(locale) {
+async function switchLanguage(locale) {
+  // 调用 i18n 模块的 setLocale，它会加载语言数据并应用翻译
+  await window.I18N.setLocale(locale);
   APP_STATE.locale = locale;
-  localStorage.setItem('tarot-locale', locale);
-  applyTranslations();
 
   // 触发语言切换事件（供各页面监听）
   window.dispatchEvent(new CustomEvent('lang-change', { detail: { locale } }));
