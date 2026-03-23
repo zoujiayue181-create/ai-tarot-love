@@ -28,7 +28,8 @@ async function initI18n() {
  */
 function getInitialLocale() {
   const saved = localStorage.getItem('tarot-locale');
-  if (saved && LOCALE_DATA[saved]) return saved;
+  // 检查 saved 是否是有效的 locale key（不能只检查 LOCALE_DATA[saved] 的真值，因为初始化时是 null）
+  if (saved && saved in LOCALE_DATA) return saved;
 
   const browserLang = navigator.language.toLowerCase();
   if (browserLang.startsWith('zh')) return 'zh';
