@@ -79,6 +79,7 @@ let selectedScene = null;
 let drawnCards = [];      // [{card, position}]
 let currentDrawIndex = 0;
 let isReading = false;
+let bilingualReading = null;  // 双语解读内容 {zh, en, original}
 const DRAW_POSITIONS = ['past', 'present', 'future'];
 
 // ============================================
@@ -102,6 +103,11 @@ function initThreeCardLove() {
   // 重新占卜
   const restartBtn = document.getElementById('restartBtn');
   if (restartBtn) restartBtn.addEventListener('click', restartReading);
+
+  // 监听语言切换，更新已生成的解读内容显示
+  window.addEventListener('lang-change', () => {
+    updateReadingDisplay();
+  });
 }
 
 // ============================================
@@ -169,6 +175,25 @@ async function handleDraw() {
 // ============================================
 // AI 解读
 // ============================================
+/**
+ * 根据当前语言获取要显示的解读内容
+ */
+function getDisplayReading() {
+  if (!bilingualReading) return '';
+  const locale = (typeof APP_STATE !== 'undefined' && APP_STATE.locale) || 'zh';
+  return locale === 'en' ? bilingualReading.en : bilingualReading.zh;
+}
+
+/**
+ * 更新解读显示（根据当前语言）
+ */
+function updateReadingDisplay() {
+  const contentEl = document.getElementById('readingContent');
+  if (contentEl && bilingualReading) {
+    contentEl.textContent = getDisplayReading();
+  }
+}
+
 async function requestAIReading() {
   const loadingEl = document.getElementById('readingLoading');
   const contentEl = document.getElementById('readingContent');
@@ -200,8 +225,11 @@ async function requestAIReading() {
       SCENE_LABELS[selectedScene]
     );
 
+    // 解析双语内容
+    bilingualReading = window.TarotAPI.parseBilingualResponse(response);
+
     if (loadingEl) loadingEl.style.display = 'none';
-    if (contentEl) contentEl.textContent = response;
+    if (contentEl) contentEl.textContent = getDisplayReading();
 
   } catch (err) {
     console.error('[three-card-love] AI error:', err);
@@ -234,6 +262,7 @@ function restartReading() {
   drawnCards = [];
   currentDrawIndex = 0;
   selectedScene = null;
+  bilingualReading = null; // 重置双语解读
 
   // 重置卡位
   ['past', 'present', 'future'].forEach(pos => {

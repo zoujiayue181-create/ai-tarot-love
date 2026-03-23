@@ -80,29 +80,23 @@ async function requestTarotReading(cardName, cardType, question, readingType) {
   const locale = getCurrentLanguage();
   const systemPrompt = getSystemPrompt(locale);
 
-  const userPrompt = locale === 'zh'
-    ? `用户问题：${question}
-用户选择的场景：${readingType}
-抽到的牌：${cardName}（${cardType === 'major' ? '大阿尔卡纳' : '小阿尔卡纳'}）
-
-请以「星辰」的身份，结合这张牌的牌义和用户的情感困惑，给出 150-200 字的温柔解读。
-
-格式：
-🌟 今日指引
-{共情 + 牌义解读 + 实用建议}
-
-注意：语气要像朋友聊天，不是机器输出。`
-    : `User question: ${question}
+  // 统一用英文 prompt，让 AI 生成双语内容
+  const userPrompt = `User question: ${question}
 Selected scenario: ${readingType}
 Card drawn: ${cardName} (${cardType === 'major' ? 'Major Arcana' : 'Minor Arcana'})
 
-Please respond as "Stardust", combining this card's meaning with the user's emotional confusion. Give a warm interpretation of 150-200 words.
+Please respond as "Stardust" with BILINGUAL output in the following EXACT format:
 
-Format:
-🌟 Today's Guidance
-{Empathy + Card interpretation + Practical advice}
+[ZH]
+【中文解读】
+{150-200 words warm interpretation in SIMPLIFIED CHINESE, empathy + card meaning + practical advice, tone like chatting with a friend}
+[/ZH]
+[EN]
+【English Interpretation】
+{150-200 words warm interpretation in English, same content as Chinese version, empathy + card meaning + practical advice, tone like chatting with a friend}
+[/EN]
 
-Note: Tone should be like chatting with a friend, not machine output.`;
+IMPORTANT: Follow this exact format. Do not add any other text outside [ZH] and [EN] tags.`;
 
   return callClaude(systemPrompt, userPrompt);
 }
@@ -119,39 +113,32 @@ async function requestThreeCardReading(cards, question, readingType) {
   const systemPrompt = getSystemPrompt(locale);
   const [past, present, future] = cards;
 
-  const userPrompt = locale === 'zh'
-    ? `用户问题：${question}
-占卜场景：${readingType}
-三张牌：
-- 过去（基础能量）：${past}
-- 现在（核心挑战）：${present}
-- 未来（建议方向）：${future}
-
-请以「星辰」的身份，综合解读这 3 张牌在用户情感问题上的含义，给出 250-350 字的温柔解读。
-
-格式：
-🌟 三牌解读
-【回顾过去】{解读 ${past} 在用户感情中的影响}
-【面对现在】{解读 ${present} 代表的现状}
-【指引未来】{解读 ${future} 指向的方向，以及实用建议}
-
-语气要像朋友聊天，温暖而有智慧。`
-    : `User question: ${question}
+  // 统一用英文 prompt，让 AI 生成双语内容
+  const userPrompt = `User question: ${question}
 Reading scenario: ${readingType}
 Three cards:
 - Past (Foundation): ${past}
 - Present (Core Challenge): ${present}
 - Future (Guidance): ${future}
 
-Please respond as "Stardust", giving a comprehensive interpretation of these 3 cards in the context of the user's emotional question. Give a warm interpretation of 250-350 words.
+Please respond as "Stardust" with BILINGUAL output in the following EXACT format:
 
-Format:
-🌟 Three-Card Reading
-【Past】{Interpretation of ${past}'s influence on the user's feelings}
-【Present】{Interpretation of what ${present} represents in the current situation}
-【Future】{Interpretation of what ${future} points to, with practical advice}
+[ZH]
+【三牌解读】
+【回顾过去】{解读 ${past} 在用户感情中的影响，100-150字中文}
+【面对现在】{解读 ${present} 代表的现状，100-150字中文}
+【指引未来】{解读 ${future} 指向的方向和实用建议，100-150字中文}
+语气温暖如朋友聊天
+[/ZH]
+[EN]
+【Three-Card Reading】
+【Past】{Interpretation of ${past}'s influence on the user's feelings, 100-150 words}
+【Present】{Interpretation of what ${present} represents in the current situation, 100-150 words}
+【Future】{Interpretation of what ${future} points to, with practical advice, 100-150 words}
+Warm tone like chatting with a friend
+[/EN]
 
-Tone should be like chatting with a friend, warm and wise.`;
+IMPORTANT: Follow this exact format. Do not add any other text outside [ZH] and [EN] tags.`;
 
   return callClaude(systemPrompt, userPrompt);
 }
@@ -203,5 +190,42 @@ async function callClaude(systemPrompt, userMessage) {
 window.TarotAPI = {
   requestTarotReading,
   requestThreeCardReading,
+  parseBilingualResponse, // 导出解析函数供其他模块使用
 };
 window.callClaude = callClaude;
+
+/**
+ * 解析双语响应内容
+ * @param {string} response - AI 返回的原始双语文本 [ZH]...[/ZH][EN]...[/EN]
+ * @returns {{zh: string, en: string, original: string}}
+ */
+function parseBilingualResponse(response) {
+  const result = { zh: '', en: '', original: response };
+
+  // 提取中文部分
+  const zhMatch = response.match(/\[ZH\]([\s\S]*?)\[\/ZH\]/i);
+  if (zhMatch) {
+    result.zh = zhMatch[1].trim();
+  }
+
+  // 提取英文部分
+  const enMatch = response.match(/\[EN\]([\s\S]*?)\[\/EN\]/i);
+  if (enMatch) {
+    result.en = enMatch[1].trim();
+  }
+
+  // 如果解析失败，fallback 到原始内容（当作中文）
+  if (!result.zh && !result.en) {
+    result.zh = response;
+    result.en = response;
+  }
+
+  // 如果只有一种语言，复制为另一种
+  if (result.zh && !result.en) {
+    result.en = result.zh;
+  } else if (!result.zh && result.en) {
+    result.zh = result.en;
+  }
+
+  return result;
+}

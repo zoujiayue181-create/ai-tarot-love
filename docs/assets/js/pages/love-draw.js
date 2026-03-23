@@ -109,6 +109,7 @@ function getQuestionLabel(key) {
 let selectedQuestion = null; // 当前选择的问题类型
 let drawnCard = null;         // 抽到的牌
 let isReading = false;       // 是否正在解读
+let bilingualReading = null;  // 双语解读内容 {zh, en, original}
 
 // ============================================
 // 初始化
@@ -154,6 +155,11 @@ function initLoveDraw() {
   if (deck) {
     deck.addEventListener('click', handleDraw);
   }
+
+  // 监听语言切换，更新已生成的解读内容显示
+  window.addEventListener('lang-change', (e) => {
+    updateReadingDisplay();
+  });
 }
 
 // ============================================
@@ -217,6 +223,25 @@ async function handleDraw() {
 // ============================================
 // Step 3: AI 解读
 // ============================================
+/**
+ * 根据当前语言获取要显示的解读内容
+ */
+function getDisplayReading() {
+  if (!bilingualReading) return '';
+  const locale = (typeof APP_STATE !== 'undefined' && APP_STATE.locale) || 'zh';
+  return locale === 'en' ? bilingualReading.en : bilingualReading.zh;
+}
+
+/**
+ * 更新解读显示（根据当前语言）
+ */
+function updateReadingDisplay() {
+  const contentEl = document.getElementById('readingContent');
+  if (contentEl && bilingualReading) {
+    contentEl.textContent = getDisplayReading();
+  }
+}
+
 async function requestAIReading() {
   const loadingEl = document.getElementById('readingLoading');
   const contentEl = document.getElementById('readingContent');
@@ -235,8 +260,11 @@ async function requestAIReading() {
       getQuestionLabel(selectedQuestion)
     );
 
+    // 解析双语内容
+    bilingualReading = window.TarotAPI.parseBilingualResponse(response);
+
     if (loadingEl) loadingEl.style.display = 'none';
-    if (contentEl) contentEl.textContent = response;
+    if (contentEl) contentEl.textContent = getDisplayReading();
     const cardLabel = window.I18N.getI18n('tarot.your_card') || '你抽到的牌';
     if (subtitleEl) subtitleEl.textContent = `${cardLabel}：${drawnCard.name}`;
 
@@ -287,6 +315,7 @@ function goToStep(step) {
 function restartReading() {
   selectedQuestion = null;
   drawnCard = null;
+  bilingualReading = null; // 重置双语解读
 
   // 重置 UI
   document.querySelectorAll('.question-card').forEach(c => c.classList.remove('selected'));
