@@ -28,7 +28,7 @@ async function initI18n() {
  */
 function getInitialLocale() {
   const saved = localStorage.getItem('tarot-locale');
-  // 检查 saved 是否是有效的 locale key（不能只检查 LOCALE_DATA[saved] 的真值，因为初始化时是 null）
+  // 检查 saved 是否是有效的 locale key
   if (saved && saved in LOCALE_DATA) return saved;
 
   const browserLang = navigator.language.toLowerCase();
@@ -49,21 +49,27 @@ async function loadLocale(locale) {
     const response = await fetch(`${basePath}assets/js/i18n/${locale}.json`);
     if (!response.ok) throw new Error(`Failed to load ${locale} translations`);
     LOCALE_DATA[locale] = await response.json();
+    console.log(`[i18n] Loaded ${locale} translations from network`);
   } catch (err) {
-    console.error(`[i18n] Failed to load ${locale}:`, err);
+    console.error(`[i18n] Failed to load ${locale} from network:`, err.message);
     // 回退到内联备用数据
     LOCALE_DATA[locale] = getInlineFallback(locale);
+    console.log(`[i18n] Using inline fallback for ${locale}`);
   }
 }
 
 /**
- * 获取基础路径（兼容 GitHub Pages 多层路径）
+ * 获取基础路径（兼容 GitHub Pages 和自定义域名）
  */
 function getBasePath() {
   const pathname = window.location.pathname;
-  // 如果在子目录，向上取目录
-  const depth = pathname.split('/').filter(Boolean).length - 1;
-  if (depth === 0) return '/';
+  // 计算路径深度
+  const segments = pathname.split('/').filter(Boolean);
+  const depth = segments.length - 1;
+  
+  if (depth <= 0) {
+    return '/';
+  }
   return '../'.repeat(depth);
 }
 
@@ -75,10 +81,11 @@ async function setLocale(locale) {
   if (locale === currentLocale) return;
   await loadLocale(locale);
   currentLocale = locale;
-  LOCALE_DATA[locale] = LOCALE_DATA[locale];
   window.I18N_DATA = LOCALE_DATA[locale];
   localStorage.setItem('tarot-locale', locale);
-  APP_STATE.locale = locale;
+  if (typeof APP_STATE !== 'undefined') {
+    APP_STATE.locale = locale;
+  }
   applyTranslations();
   window.dispatchEvent(new CustomEvent('locale-change', { detail: { locale } }));
 }
@@ -88,18 +95,27 @@ async function setLocale(locale) {
  */
 function applyTranslations() {
   const elements = document.querySelectorAll('[data-i18n]');
+  let applied = 0;
+  let missing = 0;
+  
   elements.forEach(el => {
     const key = el.getAttribute('data-i18n');
     const translation = getI18n(key);
-    if (translation) {
+    if (translation && translation !== key) {
       if (el.hasAttribute('data-i18n-html')) {
         el.innerHTML = translation;
       } else {
         el.textContent = translation;
       }
+      applied++;
+    } else {
+      missing++;
+      console.warn(`[i18n] Missing translation for key: ${key}`);
     }
   });
 
+  console.log(`[i18n] Applied ${applied} translations, ${missing} missing`);
+  
   // 更新 HTML lang 属性
   document.documentElement.lang = currentLocale;
 }
@@ -109,31 +125,120 @@ function applyTranslations() {
  * @param {string} key - 形如 "home.hero_title"
  */
 function getI18n(key) {
-  if (!window.I18N_DATA) return key;
+  if (!window.I18N_DATA) {
+    console.warn(`[i18n] I18N_DATA is null, key "${key}" not translated`);
+    return key;
+  }
   const keys = key.split('.');
   let value = window.I18N_DATA;
   for (const k of keys) {
-    value = value?.[k];
+    if (value == null || typeof value !== 'object') {
+      return key;
+    }
+    value = value[k];
   }
   return value ?? key;
 }
 
 /**
- * 备用内联数据（网络失败时使用）
+ * 备用内联数据（网络失败时使用）- 完整版本
  */
 function getInlineFallback(locale) {
   if (locale === 'zh') {
     return {
       meta: { lang: 'zh', name: '简体中文' },
-      nav: { home: '首页', single_draw: '单牌占卜', three_card: '三牌占卜', blog: '博客', login: '登录', logout: '退出登录' },
-      home: { hero_title: '你的感情困惑，星辰懂你', hero_cta: '开始今日占卜', features_title: '星辰能为你做什么', footer: { copyright: '© 2026 星辰 AI 塔罗' } },
+      nav: { 
+        home: '首页', 
+        single_draw: '单牌占卜', 
+        three_card: '三牌占卜', 
+        blog: '博客', 
+        login: '登录', 
+        logout: '退出登录' 
+      },
+      home: { 
+        hero_title: '你的感情困惑，星辰懂你', 
+        hero_subtitle: 'AI 塔罗 · 温柔解读 · 情感陪伴',
+        hero_cta: '开始今日占卜', 
+        hero_secondary: '了解更多',
+        features_title: '星辰能为你做什么',
+        feature1_title: '每日单牌占卜',
+        feature1_desc: '每日一次，AI 解读今日感情运势，给你温暖的指引',
+        feature2_title: '三牌爱情占卜',
+        feature2_desc: '过去·现在·未来，AI 综合解读你在感情中的位置和方向',
+        feature3_title: '感情追踪记录',
+        feature3_desc: '记录每一次占卜，看到感情变化轨迹，增强自我认知',
+        situations_title: '找到你的专属场景',
+        situation_crush: '暧昧期',
+        situation_crush_desc: '他/她对我有感觉吗？',
+        situation_ex: '分手边缘',
+        situation_ex_desc: '这段感情还能挽回吗？',
+        situation_paizhao: '感情诊断',
+        situation_paizhao_desc: '我们的感情出了什么问题？',
+        diff_title: '为什么选择星辰',
+        diff_empathy: '共情而非说教',
+        diff_empathy_desc: '不是冷冰冰的牌义，是真正理解你感受的朋友式对话',
+        diff_scene: '垂直场景',
+        diff_scene_desc: '暧昧、分手、挽回，不同场景不同解读',
+        diff_record: '追踪留存',
+        diff_record_desc: '记录你的每一次占卜，看到感情的成长轨迹',
+        cta_title: '准备好开始了吗？',
+        cta_subtitle: '每日一次免费的温柔指引，等待着你'
+      },
+      footer: { 
+        privacy: '隐私政策', 
+        terms: '使用条款', 
+        contact: '联系我们',
+        copyright: '© 2026 星辰 AI 塔罗 · All rights reserved'
+      },
       common: { loading: '加载中...', error: '出错了，请稍后重试' }
     };
   }
+  // English fallback
   return {
     meta: { lang: 'en', name: 'English' },
-    nav: { home: 'Home', single_draw: 'Single Card', three_card: 'Three Card', blog: 'Blog', login: 'Login', logout: 'Logout' },
-    home: { hero_title: 'Your Love Questions, Understood by Stardust', hero_cta: "Start Today's Reading", features_title: 'What Can Stardust Do For You', footer: { copyright: '© 2026 Stardust AI Tarot' } },
+    nav: { 
+      home: 'Home', 
+      single_draw: 'Single Card', 
+      three_card: 'Three Card', 
+      blog: 'Blog', 
+      login: 'Login', 
+      logout: 'Logout' 
+    },
+    home: { 
+      hero_title: 'Your Love Questions, Understood by Stardust', 
+      hero_subtitle: 'AI Tarot · Gentle Guidance · Emotional Companionship',
+      hero_cta: "Start Today's Reading", 
+      hero_secondary: 'Learn More',
+      features_title: 'What Can Stardust Do For You',
+      feature1_title: 'Daily Single Card',
+      feature1_desc: 'Once a day, AI reveals your love fortune with gentle guidance',
+      feature2_title: 'Three-Card Love Reading',
+      feature2_desc: 'Past · Present · Future — AI interprets your emotional landscape',
+      feature3_title: 'Love Tracking',
+      feature3_desc: 'Record every reading, see your emotional growth over time',
+      situations_title: 'Find Your Specific Situation',
+      situation_crush: 'Crush Phase',
+      situation_crush_desc: 'Does he/she have feelings for me?',
+      situation_ex: 'Breakup Edge',
+      situation_ex_desc: 'Can this relationship still be saved?',
+      situation_paizhao: 'Relationship Diagnosis',
+      situation_paizhao_desc: "What's going wrong in our relationship?",
+      diff_title: 'Why Choose Stardust',
+      diff_empathy: 'Empathy Over Lectures',
+      diff_empathy_desc: 'Not cold card meanings — friendly conversation that truly understands you',
+      diff_scene: 'Specific Scenarios',
+      diff_scene_desc: 'Crush, breakup, reconciliation — different scenarios get different insights',
+      diff_record: 'Track & Grow',
+      diff_record_desc: 'Record every reading, see your emotional journey unfold',
+      cta_title: 'Ready to Begin?',
+      cta_subtitle: 'One free daily reading awaits you'
+    },
+    footer: { 
+      privacy: 'Privacy Policy', 
+      terms: 'Terms of Service', 
+      contact: 'Contact Us',
+      copyright: '© 2026 Stardust AI Tarot · All rights reserved'
+    },
     common: { loading: 'Loading...', error: 'Something went wrong, please try again' }
   };
 }
@@ -142,6 +247,7 @@ function getInlineFallback(locale) {
 // 初始化并暴露到全局
 // ============================================
 initI18n().then(() => {
+  console.log(`[i18n] Initialized with locale: ${currentLocale}`);
   if (typeof applyTranslations === 'function') {
     applyTranslations();
   }
