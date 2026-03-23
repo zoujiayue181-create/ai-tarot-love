@@ -9,9 +9,7 @@
  */
 
 // API 代理地址（Cloudflare Workers）
-// 生产环境用 api.tarotforu.shop（DNS 生效后）
-// 当前先用 workers.dev 地址
-const CLOUDFLARE_WORKER_URL = 'https://tarot-claude-proxy.zoujiayue181.workers.dev/';
+const CLOUDFLARE_WORKER_URL = 'https://api.tarotforu.shop/';
 
 // ============================================
 // 塔罗师 persona
