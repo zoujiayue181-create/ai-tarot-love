@@ -200,4 +200,8 @@ async function callClaude(systemPrompt, userMessage) {
 }
 
 // 暴露给全局
+window.TarotAPI = {
+  requestTarotReading,
+  requestThreeCardReading,
+};
 window.callClaude = callClaude;

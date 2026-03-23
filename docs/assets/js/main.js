@@ -16,59 +16,20 @@ window.APP_STATE = {
 // 初始化
 // ============================================
 document.addEventListener('DOMContentLoaded', () => {
-  initI18n();
-  initTheme();
-  bindGlobalEvents();
-  checkAuthState();
-});
-
-/**
- * 初始化国际化
- */
-function initI18n() {
-  // 优先从 localStorage 读取语言偏好
+  // i18n 初始化由 i18n.js 负责（initI18n 在脚本加载时自动调用）
+  // 等待 i18n 就绪后同步 APP_STATE.locale
   const saved = localStorage.getItem('tarot-locale');
   if (saved) {
     APP_STATE.locale = saved;
   } else {
-    // 检测浏览器语言
     const browserLang = navigator.language.toLowerCase();
     APP_STATE.locale = browserLang.startsWith('zh') ? 'zh' : 'en';
   }
-  applyTranslations();
-}
 
-/**
- * 应用翻译到所有带有 data-i18n 属性的元素
- */
-function applyTranslations() {
-  const elements = document.querySelectorAll('[data-i18n]');
-  elements.forEach(el => {
-    const key = el.getAttribute('data-i18n');
-    const translation = getTranslation(key);
-    if (translation) {
-      el.textContent = translation;
-    }
-  });
-
-  // 更新 HTML lang 属性
-  document.documentElement.lang = APP_STATE.locale;
-}
-
-/**
- * 获取翻译文本
- * @param {string} key - 翻译键名（格式："key.subkey"）
- * @returns {string}
- */
-function getTranslation(key) {
-  const translations = window.I18N_DATA || {};
-  const keys = key.split('.');
-  let value = translations;
-  for (const k of keys) {
-    value = value?.[k];
-  }
-  return value || key;
-}
+  initTheme();
+  bindGlobalEvents();
+  checkAuthState();
+});
 
 /**
  * 切换语言
