@@ -42,7 +42,11 @@
   },
   "tarot": {
     "select_question": "选择你想问的问题",
+    "single_draw_title": "单牌每日占卜",
+    "question_subtitle": "深呼吸，专注你的问题，选择一个最贴近的类别",
     "draw_card": "点击抽牌",
+    "draw_guidance": "抽取今日指引",
+    "draw_subtitle": "点击下方牌堆，让星辰为你抽取今日的塔罗牌",
     "shuffling": "洗牌中...",
     "your_card": "你抽到的牌",
     "ai_guidance": "星辰的解读",
@@ -53,6 +57,12 @@
     "free_limit_reached": "今日免费次数已用完",
     "upgrade_premium": "升级 Premium 解锁无限次",
     "loading_reading": "星辰正在解读你的牌..."
+  },
+  "three_card": {
+    "main_title": "三牌爱情占卜",
+    "scene_subtitle": "选择你最想了解的维度，星辰将为你解读过去、现在与未来",
+    "draw_instruction": "依次抽取三张牌",
+    "draw_hint": "点击牌堆，依次抽取过去 · 现在 · 未来"
   },
   "question_types": {
     "daily_luck": "今日感情运势",

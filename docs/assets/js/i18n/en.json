@@ -42,7 +42,11 @@
   },
   "tarot": {
     "select_question": "Choose Your Question",
+    "single_draw_title": "Daily Single Card",
+    "question_subtitle": "Take a breath, focus on your question, choose the category that fits best",
     "draw_card": "Draw a Card",
+    "draw_guidance": "Draw Your Guidance",
+    "draw_subtitle": "Click the deck below and let Stardust draw your tarot card for today",
     "shuffling": "Shuffling...",
     "your_card": "Your Card",
     "ai_guidance": "Stardust's Insight",
@@ -53,6 +57,12 @@
     "free_limit_reached": "Daily free reading used",
     "upgrade_premium": "Upgrade to Premium for unlimited readings",
     "loading_reading": "Stardust is interpreting your card..."
+  },
+  "three_card": {
+    "main_title": "Three-Card Love Reading",
+    "scene_subtitle": "Choose the dimension you most want to understand — Stardust will interpret your Past, Present & Future",
+    "draw_instruction": "Draw Three Cards in Order",
+    "draw_hint": "Click the deck to draw your Past · Present · Future"
   },
   "question_types": {
     "daily_luck": "Today's Love Fortune",

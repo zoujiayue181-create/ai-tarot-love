@@ -205,7 +205,11 @@ function getInlineFallback(locale) {
       },
       tarot: {
         select_question: '选择你想问的问题',
+        single_draw_title: '单牌每日占卜',
+        question_subtitle: '深呼吸，专注你的问题，选择一个最贴近的类别',
         draw_card: '点击抽牌',
+        draw_guidance: '抽取今日指引',
+        draw_subtitle: '点击下方牌堆，让星辰为你抽取今日的塔罗牌',
         shuffling: '洗牌中...',
         your_card: '你抽到的牌',
         ai_guidance: '星辰的解读',
@@ -221,10 +225,13 @@ function getInlineFallback(locale) {
         daily_luck: '今日感情运势',
         single_love: '单恋对象',
         reconciliation: '复合可能性',
-        breakup: '分手困惑'
+        breakup_timing: '脱单时机'
       },
       three_card: {
-        title: '三牌爱情占卜',
+        main_title: '三牌爱情占卜',
+        scene_subtitle: '选择你最想了解的维度，星辰将为你解读过去、现在与未来',
+        draw_instruction: '依次抽取三张牌',
+        draw_hint: '点击牌堆，依次抽取过去 · 现在 · 未来',
         past: '过去',
         present: '现在',
         future: '未来',
@@ -277,10 +284,14 @@ function getInlineFallback(locale) {
     },
     tarot: {
       select_question: 'Select Your Question',
+      single_draw_title: 'Daily Single Card',
+      question_subtitle: 'Take a breath, focus on your question, choose the category that fits best',
       draw_card: 'Draw a Card',
+      draw_guidance: 'Draw Your Guidance',
+      draw_subtitle: "Click the deck below and let Stardust draw your tarot card for today",
       shuffling: 'Shuffling...',
       your_card: 'Your Card',
-      ai_guidance: "Stardust's Interpretation",
+      ai_guidance: "Stardust's Insight",
       reading_subtitle: 'Interpreting for you...',
       draw_again: 'Draw Again',
       restart: 'Draw Again',
@@ -293,10 +304,13 @@ function getInlineFallback(locale) {
       daily_luck: "Today's Love Fortune",
       single_love: 'Your Crush',
       reconciliation: 'Chance of Reconciliation',
-      breakup: 'Breakup Confusion'
+      breakup_timing: 'When Will I Find Love'
     },
     three_card: {
-      title: 'Three-Card Love Reading',
+      main_title: 'Three-Card Love Reading',
+      scene_subtitle: 'Choose the dimension you most want to understand — Stardust will interpret your Past, Present & Future',
+      draw_instruction: 'Draw Three Cards in Order',
+      draw_hint: 'Click the deck to draw your Past · Present · Future',
       past: 'Past',
       present: 'Present',
       future: 'Future',
