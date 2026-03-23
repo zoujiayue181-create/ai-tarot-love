@@ -21,6 +21,8 @@ async function initI18n() {
   window.I18N_DATA = LOCALE_DATA[locale];
   currentLocale = locale;
   dataLoaded = true;
+  // 页面加载时立即应用翻译
+  applyTranslations();
 }
 
 /**
