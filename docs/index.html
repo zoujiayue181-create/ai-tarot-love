@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="星辰 AI 塔罗 — 你的专属情感陪伴。AI 解读塔罗牌，温柔解答暧昧、分手、复合等感情困惑。每日免费占卜一次。">
+  <title>星辰 AI 塔罗 · 你的感情困惑，星辰懂你</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="assets/css/00-reset.css">
+  <link rel="stylesheet" href="assets/css/01-variables.css">
+  <link rel="stylesheet" href="assets/css/02-base.css">
+  <link rel="stylesheet" href="assets/css/pages/home.css">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
+</head>
+<body>
+
+  <!-- ============ Navigation ============ -->
+  <nav class="nav">
+    <div class="container nav__inner">
+      <a href="index.html" class="nav__logo">
+        <span class="nav__logo-icon">✨</span>
+        <span class="nav__logo-text">星辰</span>
+      </a>
+
+      <div class="nav__links">
+        <a href="love-draw.html" class="nav__link" data-i18n="nav.single_draw">单牌占卜</a>
+        <a href="three-card-love.html" class="nav__link" data-i18n="nav.three_card">三牌占卜</a>
+        <a href="blog.html" class="nav__link" data-i18n="nav.blog">博客</a>
+      </div>
+
+      <div class="nav__actions">
+        <!-- 语言切换 -->
+        <button class="nav__lang-btn" data-lang-switch="zh" title="中文">中</button>
+        <button class="nav__lang-btn" data-lang-switch="en" title="English">EN</button>
+        <!-- 登录 -->
+        <a href="#" class="btn btn-ghost nav__login-btn" id="loginBtn" data-i18n="nav.login">登录</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============ Hero Section ============ -->
+  <section class="hero">
+    <div class="container hero__inner">
+      <!-- 背景装饰 -->
+      <div class="hero__bg-stars" aria-hidden="true"></div>
+      <div class="hero__bg-glow" aria-hidden="true"></div>
+
+      <div class="hero__content">
+        <p class="hero__subtitle" data-i18n="home.hero_subtitle">AI 塔罗 · 温柔解读 · 情感陪伴</p>
+        <h1 class="hero__title" data-i18n="home.hero_title">你的感情困惑，星辰懂你</h1>
+        <p class="hero__desc">
+          不是冷冰冰的牌义解读，是真正理解你情感困惑的 AI 塔罗师。
+          暧昧、分手、挽回——每一个场景，都有星辰陪伴。
+        </p>
+        <div class="hero__actions">
+          <a href="love-draw.html" class="btn btn-primary btn-lg" data-i18n="home.hero_cta">开始今日占卜</a>
+          <a href="#features" class="btn btn-secondary btn-lg" data-i18n="home.hero_secondary">了解更多</a>
+        </div>
+      </div>
+
+      <!-- 塔罗牌装饰 -->
+      <div class="hero__cards-deco" aria-hidden="true">
+        <div class="hero__card hero__card--1">🌙</div>
+        <div class="hero__card hero__card--2">⭐</div>
+        <div class="hero__card hero__card--3">🔮</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Features Section ============ -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-header">
+        <h2 data-i18n="home.features_title">星辰能为你做什么</h2>
+        <div class="divider"></div>
+      </div>
+
+      <div class="features__grid">
+        <article class="feature-card card">
+          <div class="feature-card__icon">🃏</div>
+          <h3 data-i18n="home.feature1_title">每日单牌占卜</h3>
+          <p data-i18n="home.feature1_desc">每日一次，AI 解读今日感情运势，给你温暖的指引</p>
+          <a href="love-draw.html" class="feature-card__link">开始占卜 →</a>
+        </article>
+
+        <article class="feature-card card">
+          <div class="feature-card__icon">🌟</div>
+          <h3 data-i18n="home.feature2_title">三牌爱情占卜</h3>
+          <p data-i18n="home.feature2_desc">过去·现在·未来，AI 综合解读你在感情中的位置和方向</p>
+          <a href="three-card-love.html" class="feature-card__link">开始占卜 →</a>
+        </article>
+
+        <article class="feature-card card">
+          <div class="feature-card__icon">📝</div>
+          <h3 data-i18n="home.feature3_title">感情追踪记录</h3>
+          <p data-i18n="home.feature3_desc">记录每一次占卜，看到感情变化轨迹，增强自我认知</p>
+          <a href="#" class="feature-card__link">查看历史 →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Situations Section ============ -->
+  <section class="situations">
+    <div class="container">
+      <div class="section-header">
+        <h2 data-i18n="home.situations_title">找到你的专属场景</h2>
+        <div class="divider"></div>
+      </div>
+
+      <div class="situations__grid">
+        <a href="love-draw.html?scene=crush" class="situation-card card">
+          <div class="situation-card__emoji">💭</div>
+          <h3 data-i18n="home.situation_crush">暧昧期</h3>
+          <p data-i18n="home.situation_crush_desc">他/她对我有感觉吗？</p>
+        </a>
+
+        <a href="love-draw.html?scene=ex" class="situation-card card">
+          <div class="situation-card__emoji">💔</div>
+          <h3 data-i18n="home.situation_ex">分手边缘</h3>
+          <p data-i18n="home.situation_ex_desc">这段感情还能挽回吗？</p>
+        </a>
+
+        <a href="love-draw.html?scene=diagnosis" class="situation-card card">
+          <div class="situation-card__emoji">🔍</div>
+          <h3 data-i18n="home.situation_paizhao">感情诊断</h3>
+          <p data-i18n="home.situation_paizhao_desc">我们的感情出了什么问题？</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Difference Section ============ -->
+  <section class="difference">
+    <div class="container">
+      <div class="section-header">
+        <h2 data-i18n="home.diff_title">为什么选择星辰</h2>
+        <div class="divider"></div>
+      </div>
+
+      <div class="diff__grid">
+        <div class="diff__item">
+          <div class="diff__item-icon">💜</div>
+          <div>
+            <h4 data-i18n="home.diff_empathy">共情而非说教</h4>
+            <p data-i18n="home.diff_empathy_desc">不是冷冰冰的牌义，是真正理解你感受的朋友式对话</p>
+          </div>
+        </div>
+        <div class="diff__item">
+          <div class="diff__item-icon">🎯</div>
+          <div>
+            <h4 data-i18n="home.diff_scene">垂直场景</h4>
+            <p data-i18n="home.diff_scene_desc">暧昧、分手、挽回，不同场景不同解读</p>
+          </div>
+        </div>
+        <div class="diff__item">
+          <div class="diff__item-icon">📈</div>
+          <div>
+            <h4 data-i18n="home.diff_record">追踪留存</h4>
+            <p data-i18n="home.diff_record_desc">记录你的每一次占卜，看到感情的成长轨迹</p>
+          </div>
+        </div>
+        <div class="diff__item">
+          <div class="diff__item-icon">🌙</div>
+          <div>
+            <h4>私密安全</h4>
+            <p>你的问题和记录仅自己可见，充分保护隐私</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA Section ============ -->
+  <section class="cta">
+    <div class="container cta__inner">
+      <h2 data-i18n="home.cta_title">准备好开始了吗？</h2>
+      <p data-i18n="home.cta_subtitle">每日一次免费的温柔指引，等待着你</p>
+      <a href="love-draw.html" class="btn btn-primary btn-lg" data-i18n="home.hero_cta">开始今日占卜</a>
+    </div>
+  </section>
+
+  <!-- ============ Footer ============ -->
+  <footer class="footer">
+    <div class="container">
+      <p data-i18n="footer.copyright">© 2026 星辰 AI 塔罗 · All rights reserved</p>
+      <div class="footer-links">
+        <a href="#" data-i18n="footer.privacy">隐私政策</a>
+        <a href="#" data-i18n="footer.terms">使用条款</a>
+        <a href="#" data-i18n="footer.contact">联系我们</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============ Scripts ============ -->
+  <script src="assets/js/i18n/i18n.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/pages/home.js"></script>
+</body>
+</html>

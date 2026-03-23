@@ -1,0 +1,95 @@
+/* ============================================
+   01-variables.css — 设计系统变量
+   ============================================ */
+
+:root {
+  /* ---- 色彩 ---- */
+  --color-primary:        #6B4C9A;   /* 神秘紫 */
+  --color-primary-light:  #8B6BB5;   /* 浅紫 */
+  --color-primary-dark:   #4A3470;   /* 深紫 */
+  --color-secondary:      #B76E79;   /* 玫瑰金 */
+  --color-accent:         #D4AF37;   /* 星光金 */
+  --color-accent-light:   #E8C85A;   /* 亮金 */
+
+  --color-bg:            #1A0F2E;   /* 深紫黑（主背景） */
+  --color-bg-card:        #2D1B4E;   /* 卡片背景 */
+  --color-bg-card-hover:  #3D2860;   /* 卡片悬停 */
+  --color-bg-overlay:     rgba(26, 15, 46, 0.85);
+
+  --color-text:          #F5F0E8;   /* 奶白（主文字） */
+  --color-text-secondary: #C9B8D9;   /* 淡紫灰（次文字） */
+  --color-text-muted:    #8A7A9E;   /* 更淡的文字 */
+  --color-text-accent:   #D4AF37;   /* 金色文字 */
+
+  --color-border:        rgba(107, 76, 154, 0.3);
+  --color-border-light:  rgba(245, 240, 232, 0.1);
+  --color-border-gold:   rgba(212, 175, 55, 0.4);
+
+  --color-success:       #7BC9A6;
+  --color-error:         #E07B7B;
+  --color-warning:       #E8C85A;
+
+  /* ---- 字体 ---- */
+  --font-heading:   'Cinzel', 'Georgia', serif;
+  --font-body:      'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-elegant:   'Cormorant Garamond', 'Georgia', serif;
+
+  --font-size-xs:   0.75rem;    /* 12px */
+  --font-size-sm:   0.875rem;   /* 14px */
+  --font-size-base: 1rem;       /* 16px */
+  --font-size-lg:   1.125rem;   /* 18px */
+  --font-size-xl:   1.25rem;    /* 20px */
+  --font-size-2xl:  1.5rem;     /* 24px */
+  --font-size-3xl:  1.875rem;   /* 30px */
+  --font-size-4xl:  2.25rem;    /* 36px */
+  --font-size-5xl:  3rem;        /* 48px */
+
+  --line-height-tight:  1.2;
+  --line-height-base:  1.6;
+  --line-height-loose: 1.8;
+
+  /* ---- 间距 ---- */
+  --space-1:  0.25rem;   /* 4px */
+  --space-2:  0.5rem;    /* 8px */
+  --space-3:  0.75rem;   /* 12px */
+  --space-4:  1rem;      /* 16px */
+  --space-5:  1.25rem;   /* 20px */
+  --space-6:  1.5rem;   /* 24px */
+  --space-8:  2rem;      /* 32px */
+  --space-10: 2.5rem;   /* 40px */
+  --space-12: 3rem;      /* 48px */
+  --space-16: 4rem;      /* 64px */
+  --space-20: 5rem;     /* 80px */
+  --space-24: 6rem;     /* 96px */
+
+  /* ---- 圆角 ---- */
+  --radius-sm:   0.375rem;  /* 6px */
+  --radius-md:   0.75rem;   /* 12px */
+  --radius-lg:   1.25rem;   /* 20px */
+  --radius-xl:   1.875rem;  /* 30px */
+  --radius-full: 9999px;
+
+  /* ---- 阴影 ---- */
+  --shadow-sm:    0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md:    0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg:    0 8px 24px rgba(0, 0, 0, 0.5);
+  --shadow-glow:  0 0 20px rgba(107, 76, 154, 0.4);
+  --shadow-gold:  0 0 15px rgba(212, 175, 55, 0.3);
+
+  /* ---- 动画 ---- */
+  --transition-fast:   150ms ease;
+  --transition-base:   250ms ease;
+  --transition-slow:   400ms ease;
+  --transition-spring: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ---- 布局 ---- */
+  --max-width: 1200px;
+  --container-padding: var(--space-6);
+}
+
+/* ---- 暗色主题变量（扩展） ---- */
+@media (prefers-color-scheme: light) {
+  :root {
+    /* 如需亮色主题可在此扩展 */
+  }
+}

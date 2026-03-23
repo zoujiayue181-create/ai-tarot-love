@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "lang": "zh",
+    "name": "简体中文"
+  },
+  "nav": {
+    "home": "首页",
+    "single_draw": "单牌占卜",
+    "three_card": "三牌占卜",
+    "blog": "博客",
+    "login": "登录",
+    "logout": "退出登录"
+  },
+  "home": {
+    "hero_title": "你的感情困惑，星辰懂你",
+    "hero_subtitle": "AI 塔罗 · 温柔解读 · 情感陪伴",
+    "hero_cta": "开始今日占卜",
+    "hero_secondary": "了解更多",
+    "features_title": "星辰能为你做什么",
+    "feature1_title": "每日单牌占卜",
+    "feature1_desc": "每日一次，AI 解读今日感情运势，给你温暖的指引",
+    "feature2_title": "三牌爱情占卜",
+    "feature2_desc": "过去·现在·未来，AI 综合解读你在感情中的位置和方向",
+    "feature3_title": "感情追踪记录",
+    "feature3_desc": "记录每一次占卜，看到感情变化轨迹，增强自我认知",
+    "situations_title": "找到你的专属场景",
+    "situation_crush": "暧昧期",
+    "situation_crush_desc": "他/她对我有感觉吗？",
+    "situation_ex": "分手边缘",
+    "situation_ex_desc": "这段感情还能挽回吗？",
+    "situation_paizhao": "感情诊断",
+    "situation_paizhao_desc": "我们的感情出了什么问题？",
+    "diff_title": "为什么选择星辰",
+    "diff_empathy": "共情而非说教",
+    "diff_empathy_desc": "不是冷冰冰的牌义，是真正理解你感受的朋友式对话",
+    "diff_scene": "垂直场景",
+    "diff_scene_desc": "暧昧、分手、挽回，不同场景不同解读",
+    "diff_record": "追踪留存",
+    "diff_record_desc": "记录你的每一次占卜，看到感情的成长轨迹",
+    "cta_title": "准备好开始了吗？",
+    "cta_subtitle": "每日一次免费的温柔指引，等待着你"
+  },
+  "tarot": {
+    "select_question": "选择你想问的问题",
+    "draw_card": "点击抽牌",
+    "shuffling": "洗牌中...",
+    "your_card": "你抽到的牌",
+    "ai_guidance": "星辰的解读",
+    "draw_again": "再次占卜",
+    "free_limit_reached": "今日免费次数已用完",
+    "upgrade_premium": "升级 Premium 解锁无限次",
+    "loading_reading": "星辰正在解读你的牌..."
+  },
+  "question_types": {
+    "daily_luck": "今日感情运势",
+    "single_love": "单恋对象",
+    "reconciliation": "复合可能性",
+    "脱单_timing": "脱单时机"
+  },
+  "footer": {
+    "copyright": "© 2026 星辰 AI 塔罗 · All rights reserved",
+    "privacy": "隐私政策",
+    "terms": "使用条款",
+    "contact": "联系我们"
+  },
+  "auth": {
+    "login_title": "登录 / 注册",
+    "login_subtitle": "登录后解锁 Premium 功能",
+    "google_login": "使用 Google 登录",
+    "email_login": "邮箱登录",
+    "email_placeholder": "your@email.com",
+    "password_placeholder": "密码",
+    "login_btn": "登录",
+    "signup_btn": "注册",
+    "logout": "退出登录",
+    "welcome": "欢迎回来"
+  },
+  "premium": {
+    "title": "升级 Premium",
+    "price": "$4.99/月",
+    "feature1": "无限次单牌占卜",
+    "feature2": "无限次三牌占卜",
+    "feature3": "全部历史记录",
+    "feature4": "优先体验新功能",
+    "cta": "立即升级"
+  },
+  "common": {
+    "loading": "加载中...",
+    "error": "出错了，请稍后重试",
+    "success": "成功",
+    "cancel": "取消",
+    "confirm": "确认",
+    "back": "返回",
+    "home": "返回首页"
+  }
+}

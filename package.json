@@ -1,0 +1,15 @@
+{
+  "name": "ai-tarot-love",
+  "version": "1.0.0",
+  "description": "AI 爱情塔罗 - 情感陪伴型 AI 塔罗服务",
+  "scripts": {
+    "dev": "echo '静态站点，直接用任意 HTTP 服务器' && exit 1",
+    "lint": "echo '前端静态项目，无需构建'",
+    "test": "echo '请用浏览器测试：docs/index.html'"
+  },
+  "keywords": ["tarot", "ai", "love", "claude"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {},
+  "dependencies": {}
+}

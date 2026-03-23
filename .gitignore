@@ -1,0 +1,32 @@
+# 环境变量（绝不提交！）
+.env
+.env.local
+.env.production
+
+# macOS
+.DS_Store
+
+# 代码编辑器
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 临时文件
+*.log
+npm-debug.log*
+
+# API Keys（如果有任何本地配置文件）
+*config*.js
+*secret*.js
+
+# 编译产物（如果有）
+dist/
+build/
+
+# Cloudflare
+.wrangler/
+tmp/
+
+# Firebase（如果下载了服务账号密钥）
+*service-account*.json

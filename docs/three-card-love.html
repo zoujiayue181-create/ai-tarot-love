@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>三牌爱情占卜 · 星辰 AI 塔罗</title>
+  <meta name="description" content="过去·现在·未来 — AI 综合解读你在感情中的位置和方向">
+
+  <link rel="stylesheet" href="assets/css/00-reset.css">
+  <link rel="stylesheet" href="assets/css/01-variables.css">
+  <link rel="stylesheet" href="assets/css/02-base.css">
+  <link rel="stylesheet" href="assets/css/pages/love-draw.css">
+  <link rel="stylesheet" href="assets/css/pages/three-card-love.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="container nav__inner">
+      <a href="index.html" class="nav__logo">
+        <span class="nav__logo-icon">✨</span>
+        <span class="nav__logo-text">星辰</span>
+      </a>
+      <div class="nav__links">
+        <a href="index.html" class="nav__link">首页</a>
+        <a href="love-draw.html" class="nav__link">单牌占卜</a>
+        <a href="three-card-love.html" class="nav__link nav__link--active">三牌占卜</a>
+      </div>
+      <div class="nav__actions">
+        <button class="nav__lang-btn" data-lang-switch="zh">中</button>
+        <button class="nav__lang-btn" data-lang-switch="en">EN</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="reading-page">
+    <div class="container">
+
+      <!-- Step 1: 选择场景 -->
+      <section class="step-section active" id="step-scene">
+        <div class="step-header">
+          <span class="step-number">1</span>
+          <h1 class="step-title">三牌爱情占卜</h1>
+          <p class="step-subtitle">选择你最想了解的维度，星辰将为你解读过去、现在与未来</p>
+        </div>
+        <div class="scene-grid">
+          <button class="scene-card card" data-scene="relationship_direction">
+            <span class="scene-card__icon">🔮</span>
+            <span class="scene-card__label">感情走向</span>
+            <span class="scene-card__desc">这段感情会如何发展？</span>
+          </button>
+          <button class="scene-card card" data-scene="crush_relationship">
+            <span class="scene-card__icon">💭</span>
+            <span class="scene-card__label">暧昧关系</span>
+            <span class="scene-card__desc">我们之间是否有发展的可能？</span>
+          </button>
+          <button class="scene-card card" data-scene="reconciliation">
+            <span class="scene-card__icon">💔</span>
+            <span class="scene-card__label">复合可能性</span>
+            <span class="scene-card__desc">分手后还有机会复合吗？</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Step 2: 抽牌 -->
+      <section class="step-section" id="step-draw">
+        <div class="step-header">
+          <span class="step-number">2</span>
+          <h1 class="step-title">依次抽取三张牌</h1>
+          <p class="step-subtitle" id="drawHint">点击牌堆，依次抽取过去 · 现在 · 未来</p>
+        </div>
+
+        <div class="three-cards-area">
+          <div class="card-slots">
+            <div class="card-slot" id="slot-past">
+              <span class="card-slot__label">🌿 过去</span>
+              <div class="card-slot__face card-placeholder" id="card-past">？</div>
+            </div>
+            <div class="card-slot" id="slot-present">
+              <span class="card-slot__label">🌟 现在</span>
+              <div class="card-slot__face card-placeholder" id="card-present">？</div>
+            </div>
+            <div class="card-slot" id="slot-future">
+              <span class="card-slot__label">🌙 未来</span>
+              <div class="card-slot__face card-placeholder" id="card-future">？</div>
+            </div>
+          </div>
+
+          <div class="deck-area">
+            <div class="tarot-deck small" id="tarotDeck">
+              <div class="deck-card">🌟</div>
+            </div>
+            <p class="deck-hint" id="deckHint">点击抽第 <span id="drawIndex">1</span> 张牌</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Step 3: AI 解读 -->
+      <section class="step-section" id="step-reading">
+        <div class="step-header">
+          <span class="step-number">3</span>
+          <h1 class="step-title">星辰的解读</h1>
+        </div>
+
+        <div class="reading-result">
+          <div class="three-cards-summary" id="threeCardsSummary"></div>
+          <div class="ai-reading" id="aiReading">
+            <div class="ai-reading__typing" id="readingLoading">
+              <span></span><span></span><span></span>
+            </div>
+            <div class="ai-reading__content" id="readingContent"></div>
+          </div>
+        </div>
+
+        <div class="reading-actions">
+          <button class="btn btn-secondary" id="restartBtn">重新占卜</button>
+          <a href="love-draw.html" class="btn btn-ghost">体验单牌占卜</a>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© 2026 星辰 AI 塔罗 · All rights reserved</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/api/claude.js"></script>
+  <script src="assets/js/i18n/i18n.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/pages/three-card-love.js"></script>
+</body>
+</html>

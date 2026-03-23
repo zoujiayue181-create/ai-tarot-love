@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "lang": "en",
+    "name": "English"
+  },
+  "nav": {
+    "home": "Home",
+    "single_draw": "Single Card",
+    "three_card": "Three Card",
+    "blog": "Blog",
+    "login": "Login",
+    "logout": "Logout"
+  },
+  "home": {
+    "hero_title": "Your Love Questions, Understood by Stardust",
+    "hero_subtitle": "AI Tarot · Gentle Guidance · Emotional Companionship",
+    "hero_cta": "Start Today's Reading",
+    "hero_secondary": "Learn More",
+    "features_title": "What Can Stardust Do For You",
+    "feature1_title": "Daily Single Card",
+    "feature1_desc": "Once a day, AI reveals your love fortune with gentle guidance",
+    "feature2_title": "Three-Card Love Reading",
+    "feature2_desc": "Past · Present · Future — AI interprets your emotional landscape",
+    "feature3_title": "Love Tracking",
+    "feature3_desc": "Record every reading, see your emotional growth over time",
+    "situations_title": "Find Your Specific Situation",
+    "situation_crush": "Crush Phase",
+    "situation_crush_desc": "Does he/she have feelings for me?",
+    "situation_ex": "Breakup Edge",
+    "situation_ex_desc": "Can this relationship still be saved?",
+    "situation_paizhao": "Relationship Diagnosis",
+    "situation_paizhao_desc": "What's going wrong in our relationship?",
+    "diff_title": "Why Choose Stardust",
+    "diff_empathy": "Empathy Over Lectures",
+    "diff_empathy_desc": "Not cold card meanings — friendly conversation that truly understands you",
+    "diff_scene": "Specific Scenarios",
+    "diff_scene_desc": "Crush, breakup, reconciliation — different scenarios get different insights",
+    "diff_record": "Track & Grow",
+    "diff_record_desc": "Record every reading, see your emotional journey unfold",
+    "cta_title": "Ready to Begin?",
+    "cta_subtitle": "One free daily reading awaits you"
+  },
+  "tarot": {
+    "select_question": "Choose Your Question",
+    "draw_card": "Draw a Card",
+    "shuffling": "Shuffling...",
+    "your_card": "Your Card",
+    "ai_guidance": "Stardust's Insight",
+    "draw_again": "Draw Again",
+    "free_limit_reached": "Daily free reading used",
+    "upgrade_premium": "Upgrade to Premium for unlimited readings",
+    "loading_reading": "Stardust is interpreting your card..."
+  },
+  "question_types": {
+    "daily_luck": "Today's Love Fortune",
+    "single_love": "My Crush",
+    "reconciliation": "Chances of Reconciliation",
+    "breakup_timing": "When Will I Find Love"
+  },
+  "footer": {
+    "copyright": "© 2026 Stardust AI Tarot · All rights reserved",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Use",
+    "contact": "Contact Us"
+  },
+  "auth": {
+    "login_title": "Login / Sign Up",
+    "login_subtitle": "Login to unlock Premium features",
+    "google_login": "Continue with Google",
+    "email_login": "Email Login",
+    "email_placeholder": "your@email.com",
+    "password_placeholder": "Password",
+    "login_btn": "Login",
+    "signup_btn": "Sign Up",
+    "logout": "Logout",
+    "welcome": "Welcome back"
+  },
+  "premium": {
+    "title": "Upgrade to Premium",
+    "price": "$4.99/month",
+    "feature1": "Unlimited Single Card readings",
+    "feature2": "Unlimited Three-Card readings",
+    "feature3": "Full reading history",
+    "feature4": "Early access to new features",
+    "cta": "Upgrade Now"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong, please try again",
+    "success": "Success",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "back": "Back",
+    "home": "Back to Home"
+  }
+}
