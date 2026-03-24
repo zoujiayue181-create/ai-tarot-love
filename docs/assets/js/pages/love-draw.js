@@ -157,7 +157,7 @@ function initLoveDraw() {
   }
 
   // 监听语言切换，更新已生成的解读内容显示
-  window.addEventListener('lang-change', (e) => {
+  window.addEventListener('locale-change', (e) => {
     updateReadingDisplay();
   });
 }

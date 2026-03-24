@@ -105,7 +105,7 @@ function initThreeCardLove() {
   if (restartBtn) restartBtn.addEventListener('click', restartReading);
 
   // 监听语言切换，更新已生成的解读内容显示
-  window.addEventListener('lang-change', () => {
+  window.addEventListener('locale-change', () => {
     updateReadingDisplay();
   });
 }
