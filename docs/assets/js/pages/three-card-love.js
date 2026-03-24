@@ -166,8 +166,8 @@ async function handleDraw() {
 
   // 3 张抽完后自动进入解读
   if (drawnCards.length === 3) {
-    // 牌面展示 3.5 秒，让用户专注感受
-    await sleep(3500);
+    // 牌面展示 2.5 秒，让用户专注感受
+    await sleep(2500);
     goToStep(3);
     await requestAIReading();
   }
@@ -200,7 +200,15 @@ async function requestAIReading() {
   const contentEl = document.getElementById('readingContent');
   const summaryEl = document.getElementById('threeCardsSummary');
 
-  if (loadingEl) loadingEl.style.display = 'flex';
+  if (loadingEl) {
+    loadingEl.style.display = 'flex';
+    // 延迟添加 visible class 实现缓慢淡入
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        loadingEl.classList.add('visible');
+      });
+    });
+  }
 
   // 显示三牌摘要
   if (summaryEl) {
@@ -229,12 +237,22 @@ async function requestAIReading() {
     // 解析双语内容
     bilingualReading = window.TarotAPI.parseBilingualResponse(response);
 
-    if (loadingEl) loadingEl.style.display = 'none';
+    if (loadingEl) {
+      loadingEl.classList.remove('visible');
+      setTimeout(() => {
+        if (loadingEl) loadingEl.style.display = 'none';
+      }, 300);
+    }
     if (contentEl) contentEl.textContent = getDisplayReading();
 
   } catch (err) {
     console.error('[three-card-love] AI error:', err);
-    if (loadingEl) loadingEl.style.display = 'none';
+    if (loadingEl) {
+      loadingEl.classList.remove('visible');
+      setTimeout(() => {
+        if (loadingEl) loadingEl.style.display = 'none';
+      }, 300);
+    }
     if (contentEl) {
       contentEl.textContent = `解读暂时无法获取，请稍后重试。\n\n错误：${err.message}`;
       contentEl.style.color = 'var(--color-error)';
