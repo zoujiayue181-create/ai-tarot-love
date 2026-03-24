@@ -156,7 +156,6 @@ async function handleDraw() {
 
   // 更新 deck hint（使用集中管理的函数）
   updateDeckHint();
-  const deck = document.getElementById('tarotDeck');
   if (currentDrawIndex >= 3 && deck) {
     deck.style.opacity = '0.3';
   }
