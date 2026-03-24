@@ -159,6 +159,11 @@ function initLoveDraw() {
   // 监听语言切换，更新已生成的解读内容显示
   window.addEventListener('locale-change', (e) => {
     updateReadingDisplay();
+    // 如果在抽牌步骤，也更新 deckHint
+    const stepDraw = document.getElementById('step-draw');
+    if (stepDraw && stepDraw.classList.contains('active')) {
+      updateDeckHint();
+    }
   });
 
   // 确保初始化时也更新一次显示（locale-change 可能在 DOMContentLoaded 之前触发）
@@ -320,6 +325,17 @@ function showDrawnCard(card) {
   if (cardImage) cardImage.textContent = card.emoji;
   if (cardName) cardName.textContent = card.name;
   if (drawBtn) drawBtn.style.display = 'none';
+}
+
+// ============================================
+// 抽牌步骤辅助函数
+// ============================================
+function updateDeckHint() {
+  const hint = document.getElementById('deckHint');
+  if (!hint || !selectedQuestion) return;
+  const selected = window.I18N.getI18n('tarot.selected') || '已选择';
+  const clickToDraw = window.I18N.getI18n('tarot.click_to_draw') || '点击抽牌';
+  hint.textContent = `${selected}：${getQuestionLabel(selectedQuestion)}，${clickToDraw}`;
 }
 
 // ============================================

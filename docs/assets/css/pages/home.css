@@ -34,10 +34,11 @@
 
 .nav__links {
   display: flex;
-  gap: var(--space-6);
+  gap: var(--space-3);
   align-items: center;
 }
 
+/* 导航链接之间的装饰分隔符 */
 .nav__link {
   font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', 'Cinzel', sans-serif;
   font-size: var(--font-size-sm);
@@ -45,13 +46,31 @@
   letter-spacing: 0.03em;
   color: var(--color-text-secondary);
   transition: color var(--transition-fast);
-  padding: var(--space-2) 0;
+  padding: var(--space-3) var(--space-4);
   border-bottom: 2px solid transparent;
+  border-radius: var(--radius-sm);
+  position: relative;
 }
-.nav__link:hover { color: var(--color-accent); }
+
+/* 分隔符装饰 */
+.nav__link:not(:last-child)::after {
+  content: '·';
+  position: absolute;
+  right: calc(var(--space-4) * -1 - 4px);
+  color: var(--color-border-gold);
+  opacity: 0.5;
+  font-size: var(--font-size-lg);
+  pointer-events: none;
+}
+
+.nav__link:hover {
+  color: var(--color-accent);
+  background: rgba(201, 168, 76, 0.08);
+}
 .nav__link--active {
   color: var(--color-accent);
   border-bottom-color: var(--color-accent);
+  background: rgba(201, 168, 76, 0.1);
 }
 
 .nav__actions {

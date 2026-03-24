@@ -107,6 +107,11 @@ function initThreeCardLove() {
   // 监听语言切换，更新已生成的解读内容显示
   window.addEventListener('locale-change', () => {
     updateReadingDisplay();
+    // 如果在抽牌步骤，也更新 deckHint
+    const stepDraw = document.getElementById('step-draw');
+    if (stepDraw && stepDraw.classList.contains('active')) {
+      updateDeckHint();
+    }
   });
 
   // 确保初始化时也更新一次显示（locale-change 可能在 DOMContentLoaded 之前触发）
@@ -148,21 +153,12 @@ async function handleDraw() {
 
   // 更新提示
   currentDrawIndex++;
-  const indexEl = document.getElementById('drawIndex');
-  if (indexEl) {
-    indexEl.textContent = currentDrawIndex + 1;
-  }
 
-  // 更新 deck hint
-  const hint = document.getElementById('deckHint');
-  if (hint) {
-    if (currentDrawIndex < 3) {
-      const clickToDraw = window.I18N.getI18n('three_card.click_to_draw_card') || '点击抽第 {n} 张牌';
-      hint.innerHTML = clickToDraw.replace('{n}', `<span id="drawIndex">${currentDrawIndex + 1}</span>`);
-    } else {
-      hint.textContent = window.I18N.getI18n('three_card.all_cards_drawn') || '三张牌已抽完 ✨';
-      if (deck) deck.style.opacity = '0.3';
-    }
+  // 更新 deck hint（使用集中管理的函数）
+  updateDeckHint();
+  const deck = document.getElementById('tarotDeck');
+  if (currentDrawIndex >= 3 && deck) {
+    deck.style.opacity = '0.3';
   }
 
   isReading = false;
@@ -285,6 +281,20 @@ function goToStep(step) {
 }
 
 // ============================================
+// 抽牌步骤辅助函数
+// ============================================
+function updateDeckHint() {
+  const hint = document.getElementById('deckHint');
+  if (!hint) return;
+  if (currentDrawIndex < 3) {
+    const clickToDraw = window.I18N.getI18n('three_card.click_to_draw_card') || '点击抽第 {n} 张牌';
+    hint.innerHTML = clickToDraw.replace('{n}', `<span id="drawIndex">${currentDrawIndex + 1}</span>`);
+  } else {
+    hint.textContent = window.I18N.getI18n('three_card.all_cards_drawn') || '三张牌已抽完 ✨';
+  }
+}
+
+// ============================================
 // 重新占卜
 // ============================================
 function restartReading() {
@@ -307,11 +317,8 @@ function restartReading() {
   const deck = document.getElementById('tarotDeck');
   if (deck) deck.style.opacity = '1';
 
-  const hint = document.getElementById('deckHint');
-  if (hint) {
-    const clickToDraw = window.I18N.getI18n('three_card.click_to_draw_card') || '点击抽第 {n} 张牌';
-    hint.innerHTML = clickToDraw.replace('{n}', '<span id="drawIndex">1</span>');
-  }
+  // 重置 deck hint
+  updateDeckHint();
 
   document.querySelectorAll('.scene-card').forEach(c => c.classList.remove('selected'));
   const summaryEl = document.getElementById('threeCardsSummary');
