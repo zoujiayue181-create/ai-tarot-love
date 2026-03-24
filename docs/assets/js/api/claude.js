@@ -202,28 +202,48 @@ window.callClaude = callClaude;
 function parseBilingualResponse(response) {
   const result = { zh: '', en: '', original: response };
 
-  // 提取中文部分
-  const zhMatch = response.match(/\[ZH\]([\s\S]*?)\[\/ZH\]/i);
-  if (zhMatch) {
+  // 调试日志
+  console.log('[parseBilingualResponse] Raw response:', response.substring(0, 200));
+
+  // 提取中文部分 - 使用更宽松的匹配（支持多种格式）
+  const zhMatch = response.match(/\[ZH\]\s*([\s\S]*?)\s*\[\/ZH\]/i);
+  if (zhMatch && zhMatch[1].trim()) {
     result.zh = zhMatch[1].trim();
+    console.log('[parseBilingualResponse] Chinese extracted:', result.zh.substring(0, 100));
   }
 
   // 提取英文部分
-  const enMatch = response.match(/\[EN\]([\s\S]*?)\[\/EN\]/i);
-  if (enMatch) {
+  const enMatch = response.match(/\[EN\]\s*([\s\S]*?)\s*\[\/EN\]/i);
+  if (enMatch && enMatch[1].trim()) {
     result.en = enMatch[1].trim();
+    console.log('[parseBilingualResponse] English extracted:', result.en.substring(0, 100));
   }
 
-  // 如果解析失败，fallback 到原始内容（当作中文）
+  // 如果解析失败（两个都是空的），尝试更宽松的匹配
   if (!result.zh && !result.en) {
-    result.zh = response;
-    result.en = response;
-  }
+    console.warn('[parseBilingualResponse] Both empty, trying loose match');
+    // 尝试匹配任何中文内容作为 zh，任何英文内容作为 en
+    const chineseChars = response.match(/[\u4e00-\u9fa5]/g);
+    const englishWords = response.match(/[a-zA-Z]{4,}/g);
 
-  // 如果只有一种语言，复制为另一种
-  if (result.zh && !result.en) {
+    if (chineseChars && chineseChars.length > 10) {
+      // 有足够多的中文字符，假设整个响应是中文
+      result.zh = response;
+      result.en = response; // fallback
+    } else if (englishWords && englishWords.length > 10) {
+      // 有足够多的英文字符，假设整个响应是英文
+      result.en = response;
+      result.zh = response; // fallback
+    } else {
+      // 无法识别，整段作为双方言
+      result.zh = response;
+      result.en = response;
+    }
+  } else if (result.zh && !result.en) {
+    // 只有中文
     result.en = result.zh;
   } else if (!result.zh && result.en) {
+    // 只有英文
     result.zh = result.en;
   }
 
