@@ -171,7 +171,9 @@ function getInlineFallback(locale) {
         logo: '星辰',
         home: '首页',
         single_draw: '单牌占卜',
+        single: '单牌',
         three_card: '三牌占卜',
+        three: '三牌',
         blog: '博客',
         login: '登录',
         logout: '退出登录'
@@ -273,7 +275,9 @@ function getInlineFallback(locale) {
       logo: 'Stardust',
       home: 'Home',
       single_draw: 'Single Card',
+      single: 'Single',
       three_card: 'Three Card',
+      three: 'Three',
       blog: 'Blog',
       login: 'Login',
       logout: 'Logout'

@@ -7,7 +7,9 @@
     "logo": "Stardust",
     "home": "Home",
     "single_draw": "Single Card",
+    "single": "Single",
     "three_card": "Three Card",
+    "three": "Three",
     "blog": "Blog",
     "login": "Login",
     "logout": "Logout"

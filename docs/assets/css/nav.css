@@ -148,8 +148,24 @@
     font-size: var(--font-size-xs);
   }
 
+  /* 手机端显示短版导航文字 */
+  .nav__link > span:first-child {
+    display: none;
+  }
+  .nav__link--short {
+    display: inline !important;
+  }
+
   .nav__lang-btn {
     padding: var(--space-1) var(--space-2);
     font-size: 0.65rem;
+  }
+
+  /* 登录按钮更小更粗 */
+  .nav__login-btn {
+    padding: var(--space-1) var(--space-2);
+    font-size: 0.65rem;
+    border-width: 2px;
+    min-width: auto;
   }
 }
