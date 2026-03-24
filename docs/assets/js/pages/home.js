@@ -7,11 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function initHomePage() {
-  // 语言切换后更新按钮高亮
-  updateLangButtons();
-
   // 监听语言切换事件
   window.addEventListener('locale-change', updateLangButtons);
+  // 立即更新一次按钮状态（initI18n 已触发 locale-change，但可能先于本监听器注册）
+  requestAnimationFrame(() => updateLangButtons());
 
   // 登录按钮（未来接入 Firebase Auth）
   const loginBtn = document.getElementById('loginBtn');

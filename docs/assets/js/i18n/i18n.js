@@ -23,6 +23,11 @@ async function initI18n() {
   dataLoaded = true;
   // 页面加载时立即应用翻译
   applyTranslations();
+  // 确保 APP_STATE.locale 同步，并通知各页面更新
+  if (typeof APP_STATE !== 'undefined') {
+    APP_STATE.locale = locale;
+  }
+  window.dispatchEvent(new CustomEvent('locale-change', { detail: { locale } }));
 }
 
 /**

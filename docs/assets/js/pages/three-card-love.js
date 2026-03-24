@@ -108,6 +108,9 @@ function initThreeCardLove() {
   window.addEventListener('locale-change', () => {
     updateReadingDisplay();
   });
+
+  // 确保初始化时也更新一次显示（locale-change 可能在 DOMContentLoaded 之前触发）
+  requestAnimationFrame(() => updateReadingDisplay());
 }
 
 // ============================================
