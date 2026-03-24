@@ -98,6 +98,25 @@
   background: linear-gradient(135deg, var(--color-bg-card), var(--color-primary-dark));
 }
 
+/* 牌面内容：emoji + 名称 */
+.card-slot__face {
+  flex-direction: column;
+  gap: 8px;
+}
+
+.card-emoji {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.card-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text);
+  text-align: center;
+  line-height: 1.2;
+}
+
 /* ---- Deck ---- */
 .tarot-deck.small .deck-card {
   width: 120px;

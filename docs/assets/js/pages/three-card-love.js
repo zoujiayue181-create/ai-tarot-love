@@ -141,7 +141,10 @@ async function handleDraw() {
   const position = DRAW_POSITIONS[currentDrawIndex];
   const slotEl = document.getElementById(`card-${position}`);
   if (slotEl) {
-    slotEl.textContent = card.emoji;
+    const emojiEl = slotEl.querySelector('.card-emoji');
+    const nameEl = slotEl.querySelector('.card-name');
+    if (emojiEl) emojiEl.textContent = card.emoji;
+    if (nameEl) nameEl.textContent = card.name;
     slotEl.classList.remove('card-placeholder');
     slotEl.classList.add('flipped');
 
@@ -306,7 +309,10 @@ function restartReading() {
   ['past', 'present', 'future'].forEach(pos => {
     const el = document.getElementById(`card-${pos}`);
     if (el) {
-      el.textContent = '？';
+      const emojiEl = el.querySelector('.card-emoji');
+      const nameEl = el.querySelector('.card-name');
+      if (emojiEl) emojiEl.textContent = '？';
+      if (nameEl) nameEl.textContent = '';
       el.classList.add('card-placeholder');
       el.classList.remove('flipped', 'revealed');
     }
