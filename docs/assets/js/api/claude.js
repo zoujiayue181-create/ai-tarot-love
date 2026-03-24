@@ -85,14 +85,14 @@ async function requestTarotReading(cardName, cardType, question, readingType) {
 Selected scenario: ${readingType}
 Card drawn: ${cardName} (${cardType === 'major' ? 'Major Arcana' : 'Minor Arcana'})
 
-Please respond as "Stardust" with BILINGUAL output in the following EXACT format:
+Please respond as "Stardust" with BILINGUAL output in the following EXACT format. Write ONLY the content, do not include these instructions:
 
 ===== 中文解读 start =====
-{150-200 words warm interpretation in SIMPLIFIED CHINESE, empathy + card meaning + practical advice, tone like chatting with a friend}
+请给出 ${cardName} 的解读，150-200字，中文，语气温暖共情，像朋友聊天一样给出实用建议。
 ===== 中文解读 end =====
 
 ===== English Interpretation start =====
-{150-200 words warm interpretation in English, same content as Chinese version, empathy + card meaning + practical advice, tone like chatting with a friend}
+Please give your interpretation of ${cardName}, 150-200 words in English, warm and empathetic tone, like chatting with a friend giving practical advice.
 ===== English Interpretation end =====
 
 IMPORTANT: Follow this exact format. Do not add any other text.`;
@@ -120,22 +120,20 @@ Three cards:
 - Present (Core Challenge): ${present}
 - Future (Guidance): ${future}
 
-Please respond as "Stardust" with BILINGUAL output in the following EXACT format:
+Please respond as "Stardust" with BILINGUAL output in the following EXACT format. Write ONLY the content, do not include these instructions:
 
 ===== 中文解读 start =====
 【三牌解读】
-【回顾过去】{解读 ${past} 在用户感情中的影响，100-150字中文}
-【面对现在】{解读 ${present} 代表的现状，100-150字中文}
-【指引未来】{解读 ${future} 指向的方向和实用建议，100-150字中文}
-语气温暖如朋友聊天
+【回顾过去】请解读 ${past} 在用户感情中的影响，100-150字，语气温暖如朋友聊天。
+【面对现在】请解读 ${present} 代表的现状，100-150字，语气温暖如朋友聊天。
+【指引未来】请解读 ${future} 指向的方向和实用建议，100-150字，语气温暖如朋友聊天。
 ===== 中文解读 end =====
 
 ===== English Interpretation start =====
 【Three-Card Reading】
-【Past】{Interpretation of ${past}'s influence on the user's feelings, 100-150 words}
-【Present】{Interpretation of what ${present} represents in the current situation, 100-150 words}
-【Future】{Interpretation of what ${future} points to, with practical advice, 100-150 words}
-Warm tone like chatting with a friend
+【Past】Interpret ${past}'s influence on the user's feelings, 100-150 words, warm tone like chatting with a friend.
+【Present】Interpret what ${present} represents in the current situation, 100-150 words, warm tone like chatting with a friend.
+【Future】Interpret what ${future} points to and provide practical advice, 100-150 words, warm tone like chatting with a friend.
 ===== English Interpretation end =====
 
 IMPORTANT: Follow this exact format. Do not add any other text.`;
