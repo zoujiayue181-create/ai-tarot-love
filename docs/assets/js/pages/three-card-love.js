@@ -262,10 +262,10 @@ async function requestAIReading() {
     }
     if (subtitleEl) subtitleEl.style.display = 'none';
     if (contentEl) {
-      contentEl.textContent = `解读暂时无法获取，请稍后重试。\n\n错误：${err.message}`;
+      contentEl.textContent = `${window.I18N.getI18n('three_card.reading_error') || '解读暂时无法获取，请稍后重试。'}\n\n错误：${err.message}`;
       contentEl.style.color = 'var(--color-error)';
     }
-    showToast('解读获取失败，请检查网络', 'error');
+    showToast(window.I18N.getI18n('three_card.reading_failed_toast') || '解读获取失败，请检查网络', 'error');
   } finally {
     showLoading(false);
   }

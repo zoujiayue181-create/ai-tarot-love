@@ -72,7 +72,15 @@
     "past": "Past",
     "present": "Present",
     "future": "Future",
-    "try_single": "Try Single Card Reading"
+    "try_single": "Try Single Card Reading",
+    "scene_relationship_label": "Relationship Direction",
+    "scene_relationship_desc": "Where is this relationship heading?",
+    "scene_crush_label": "Crush Relationship",
+    "scene_crush_desc": "Is there potential for us to develop?",
+    "scene_reconciliation_label": "Reconciliation Possibility",
+    "scene_reconciliation_desc": "Any chance of getting back together?",
+    "reading_error": "Unable to retrieve reading, please try again later",
+    "reading_failed_toast": "Failed to get reading, please check your network"
   },
   "question_types": {
     "daily_luck": "Today's Love Fortune",

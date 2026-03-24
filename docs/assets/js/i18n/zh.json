@@ -72,7 +72,15 @@
     "past": "过去",
     "present": "现在",
     "future": "未来",
-    "try_single": "体验单牌占卜"
+    "try_single": "体验单牌占卜",
+    "scene_relationship_label": "感情走向",
+    "scene_relationship_desc": "这段感情会如何发展？",
+    "scene_crush_label": "暧昧关系",
+    "scene_crush_desc": "我们之间是否有发展的可能？",
+    "scene_reconciliation_label": "复合可能性",
+    "scene_reconciliation_desc": "分手后还有机会复合吗？",
+    "reading_error": "解读暂时无法获取，请稍后重试",
+    "reading_failed_toast": "解读获取失败，请检查网络"
   },
   "question_types": {
     "daily_luck": "今日感情运势",

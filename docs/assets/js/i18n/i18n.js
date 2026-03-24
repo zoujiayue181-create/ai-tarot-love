@@ -251,7 +251,15 @@ function getInlineFallback(locale) {
         try_single: '体验单牌占卜',
         selectSituation: '选择你的情况',
         startReading: '开始解读',
-        reading: '解读中...'
+        reading: '解读中...',
+        scene_relationship_label: '感情走向',
+        scene_relationship_desc: '这段感情会如何发展？',
+        scene_crush_label: '暧昧关系',
+        scene_crush_desc: '我们之间是否有发展的可能？',
+        scene_reconciliation_label: '复合可能性',
+        scene_reconciliation_desc: '分手后还有机会复合吗？',
+        reading_error: '解读暂时无法获取，请稍后重试',
+        reading_failed_toast: '解读获取失败，请检查网络'
       },
       common: { loading: '加载中...', error: '出错了，请稍后重试' }
     };
@@ -337,7 +345,15 @@ function getInlineFallback(locale) {
       try_single: 'Try Single Card Reading',
       selectSituation: 'Select your situation',
       startReading: 'Start Reading',
-      reading: 'Interpreting...'
+      reading: 'Interpreting...',
+      scene_relationship_label: 'Relationship Direction',
+      scene_relationship_desc: 'Where is this relationship heading?',
+      scene_crush_label: 'Crush Relationship',
+      scene_crush_desc: 'Is there potential for us to develop?',
+      scene_reconciliation_label: 'Reconciliation Possibility',
+      scene_reconciliation_desc: 'Any chance of getting back together?',
+      reading_error: 'Unable to retrieve reading, please try again later',
+      reading_failed_toast: 'Failed to get reading, please check your network'
     },
     footer: { 
       privacy: 'Privacy Policy', 
