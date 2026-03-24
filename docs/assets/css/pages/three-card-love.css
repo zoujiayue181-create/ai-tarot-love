@@ -159,21 +159,25 @@
 
 @media (max-width: 640px) {
   .scene-grid { grid-template-columns: 1fr; }
-  .card-slots { flex-direction: column; gap: var(--space-4); }
-  .card-slot__face {
-    width: 110px;
-    height: 156px;
-    font-size: 2.5rem;
+  .card-slots {
+    flex-direction: row;
+    justify-content: center;
+    gap: var(--space-2);
   }
-  .card-emoji { font-size: 2.5rem; }
-  .card-name { font-size: 0.75rem; }
+  .card-slot__face {
+    width: 90px;
+    height: 128px;
+    font-size: 2rem;
+  }
+  .card-emoji { font-size: 2rem; }
+  .card-name { font-size: 0.65rem; }
   .three-cards-area {
     padding: var(--space-4) 0;
-    gap: var(--space-6);
+    gap: var(--space-4);
   }
   .tarot-deck.small .deck-card {
-    width: 100px;
-    height: 140px;
-    font-size: 2.5rem;
+    width: 90px;
+    height: 128px;
+    font-size: 2rem;
   }
 }

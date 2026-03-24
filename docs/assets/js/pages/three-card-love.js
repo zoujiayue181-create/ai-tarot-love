@@ -161,6 +161,9 @@ async function handleDraw() {
   updateDeckHint();
   if (currentDrawIndex >= 3 && deck) {
     deck.style.opacity = '0.3';
+    // 隐藏整个牌堆区域，让三张卡牌占据空间
+    const deckArea = document.querySelector('.deck-area');
+    if (deckArea) deckArea.style.display = 'none';
   }
 
   isReading = false;
@@ -321,6 +324,8 @@ function restartReading() {
   // 重置 deck
   const deck = document.getElementById('tarotDeck');
   if (deck) deck.style.opacity = '1';
+  const deckArea = document.querySelector('.deck-area');
+  if (deckArea) deckArea.style.display = '';
 
   // 重置 deck hint
   updateDeckHint();
