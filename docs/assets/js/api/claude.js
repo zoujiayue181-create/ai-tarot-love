@@ -203,48 +203,78 @@ function parseBilingualResponse(response) {
   const result = { zh: '', en: '', original: response };
 
   // 调试日志
-  console.log('[parseBilingualResponse] Raw response:', response.substring(0, 200));
+  console.log('[parseBilingualResponse] Raw response:', response.substring(0, 300));
 
-  // 提取中文部分 - 使用更宽松的匹配（支持多种格式）
-  const zhMatch = response.match(/\[ZH\]\s*([\s\S]*?)\s*\[\/ZH\]/i);
-  if (zhMatch && zhMatch[1].trim()) {
-    result.zh = zhMatch[1].trim();
-    console.log('[parseBilingualResponse] Chinese extracted:', result.zh.substring(0, 100));
-  }
+  // 清理响应中的嵌套标签问题
+  // 如果有嵌套的 [ZH] 或 [EN] 标签（AI 错误输出），先清理
+  let cleaned = response;
 
-  // 提取英文部分
-  const enMatch = response.match(/\[EN\]\s*([\s\S]*?)\s*\[\/EN\]/i);
-  if (enMatch && enMatch[1].trim()) {
-    result.en = enMatch[1].trim();
-    console.log('[parseBilingualResponse] English extracted:', result.en.substring(0, 100));
-  }
+  // 移除内部嵌套的标签（如 [ZH] 里面有 [ZH]...[/ZH]）
+  // 策略：找到最外层的 [ZH]...[/ZH] 和 [EN]...[/EN]
+  // 如果提取的内容里面还包含标签，继续清理
 
-  // 如果解析失败（两个都是空的），尝试更宽松的匹配
-  if (!result.zh && !result.en) {
-    console.warn('[parseBilingualResponse] Both empty, trying loose match');
-    // 尝试匹配任何中文内容作为 zh，任何英文内容作为 en
-    const chineseChars = response.match(/[\u4e00-\u9fa5]/g);
-    const englishWords = response.match(/[a-zA-Z]{4,}/g);
+  /**
+   * 递归清理嵌套标签，只保留最内层的内容
+   */
+  function extractContent(text, tag) {
+    const tagRe = new RegExp(`\\[${tag}\\]([\\s\\S]*?)\\[\\/${tag}\\]`, 'i');
+    let match = text.match(tagRe);
+    if (!match) return '';
 
-    if (chineseChars && chineseChars.length > 10) {
-      // 有足够多的中文字符，假设整个响应是中文
-      result.zh = response;
-      result.en = response; // fallback
-    } else if (englishWords && englishWords.length > 10) {
-      // 有足够多的英文字符，假设整个响应是英文
-      result.en = response;
-      result.zh = response; // fallback
-    } else {
-      // 无法识别，整段作为双方言
-      result.zh = response;
-      result.en = response;
+    let content = match[1].trim();
+    // 如果内容中还有同类标签，继续提取
+    while (content.includes(`[${tag}]`) || content.includes(`[/${tag}]`)) {
+      const innerMatch = content.match(tagRe);
+      if (innerMatch) {
+        content = innerMatch[1].trim();
+      } else {
+        break;
+      }
     }
-  } else if (result.zh && !result.en) {
-    // 只有中文
+    return content;
+  }
+
+  result.zh = extractContent(cleaned, 'ZH');
+  result.en = extractContent(cleaned, 'EN');
+
+  console.log('[parseBilingualResponse] Chinese extracted:', result.zh.substring(0, 100));
+  console.log('[parseBilingualResponse] English extracted:', result.en.substring(0, 100));
+
+  // 如果提取失败，尝试更宽松的匹配
+  if (!result.zh || !result.en) {
+    console.warn('[parseBilingualResponse] Extract failed, trying loose match');
+    // 直接搜索中文和英文字符
+    const chineseMatch = response.match(/[\u4e00-\u9fa5]{4,}/);
+    const englishMatch = response.match(/[a-zA-Z]{4,}/);
+
+    if (!result.zh && chineseMatch) {
+      // 找到中文字符，尝试提取周围的内容
+      const zhIndex = response.indexOf(chineseMatch[0]);
+      // 往前找 [ZH]，往后找 [/ZH]
+      const zhStart = response.lastIndexOf('[ZH]', zhIndex);
+      const zhEnd = response.indexOf('[/ZH]', zhIndex);
+      if (zhStart !== -1 && zhEnd !== -1) {
+        result.zh = response.substring(zhStart + 5, zhEnd).trim();
+      }
+    }
+
+    if (!result.en && englishMatch) {
+      // 找到英文字符，尝试提取周围的内容
+      const enIndex = response.indexOf(englishMatch[0]);
+      const enStart = response.lastIndexOf('[EN]', enIndex);
+      const enEnd = response.indexOf('[/EN]', enIndex);
+      if (enStart !== -1 && enEnd !== -1) {
+        result.en = response.substring(enStart + 5, enEnd).trim();
+      }
+    }
+  }
+
+  // 最终 fallback
+  if (!result.zh) {
+    result.zh = response;
+  }
+  if (!result.en) {
     result.en = result.zh;
-  } else if (!result.zh && result.en) {
-    // 只有英文
-    result.zh = result.en;
   }
 
   return result;
