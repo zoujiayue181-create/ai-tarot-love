@@ -87,16 +87,12 @@ Card drawn: ${cardName} (${cardType === 'major' ? 'Major Arcana' : 'Minor Arcana
 
 Please respond as "Stardust" with BILINGUAL output in the following EXACT format:
 
-[ZH]
-【中文解读】
+===CHINESE===
 {150-200 words warm interpretation in SIMPLIFIED CHINESE, empathy + card meaning + practical advice, tone like chatting with a friend}
-[/ZH]
-[EN]
-【English Interpretation】
+===ENGLISH===
 {150-200 words warm interpretation in English, same content as Chinese version, empathy + card meaning + practical advice, tone like chatting with a friend}
-[/EN]
 
-IMPORTANT: Follow this exact format. Do not add any other text outside [ZH] and [EN] tags.`;
+IMPORTANT: Follow this exact format. Output Chinese content after ===CHINESE=== and English content after ===ENGLISH===. Do not add any other text.`;
 
   return callClaude(systemPrompt, userPrompt);
 }
@@ -123,22 +119,20 @@ Three cards:
 
 Please respond as "Stardust" with BILINGUAL output in the following EXACT format:
 
-[ZH]
+===CHINESE===
 【三牌解读】
 【回顾过去】{解读 ${past} 在用户感情中的影响，100-150字中文}
 【面对现在】{解读 ${present} 代表的现状，100-150字中文}
 【指引未来】{解读 ${future} 指向的方向和实用建议，100-150字中文}
 语气温暖如朋友聊天
-[/ZH]
-[EN]
+===ENGLISH===
 【Three-Card Reading】
 【Past】{Interpretation of ${past}'s influence on the user's feelings, 100-150 words}
 【Present】{Interpretation of what ${present} represents in the current situation, 100-150 words}
 【Future】{Interpretation of what ${future} points to, with practical advice, 100-150 words}
 Warm tone like chatting with a friend
-[/EN]
 
-IMPORTANT: Follow this exact format. Do not add any other text outside [ZH] and [EN] tags.`;
+IMPORTANT: Follow this exact format. Output Chinese content after ===CHINESE=== and English content after ===ENGLISH===. Do not add any other text.`;
 
   return callClaude(systemPrompt, userPrompt);
 }
@@ -196,82 +190,44 @@ window.callClaude = callClaude;
 
 /**
  * 解析双语响应内容
- * @param {string} response - AI 返回的原始双语文本 [ZH]...[/ZH][EN]...[/EN]
+ * @param {string} response - AI 返回的原始双语文本
  * @returns {{zh: string, en: string, original: string}}
  */
 function parseBilingualResponse(response) {
   const result = { zh: '', en: '', original: response };
 
-  // 调试日志
   console.log('[parseBilingualResponse] Raw response:', response.substring(0, 300));
 
-  // 清理响应中的嵌套标签问题
-  // 如果有嵌套的 [ZH] 或 [EN] 标签（AI 错误输出），先清理
-  let cleaned = response;
+  // 预处理：移除首尾空白
+  let text = response.trim();
 
-  // 移除内部嵌套的标签（如 [ZH] 里面有 [ZH]...[/ZH]）
-  // 策略：找到最外层的 [ZH]...[/ZH] 和 [EN]...[/EN]
-  // 如果提取的内容里面还包含标签，继续清理
+  // 新格式: ===CHINESE=== ...content... ===ENGLISH=== ...content...
+  const chineseMatch = text.match(/===CHINESE===\s*([\s\S]*?)\s*===ENGLISH===/i);
+  const englishMatch = text.match(/===ENGLISH===\s*([\s\S]*?)\s*$/i);
 
-  /**
-   * 递归清理嵌套标签，只保留最内层的内容
-   */
-  function extractContent(text, tag) {
-    const tagRe = new RegExp(`\\[${tag}\\]([\\s\\S]*?)\\[\\/${tag}\\]`, 'i');
-    let match = text.match(tagRe);
-    if (!match) return '';
-
-    let content = match[1].trim();
-    // 如果内容中还有同类标签，继续提取
-    while (content.includes(`[${tag}]`) || content.includes(`[/${tag}]`)) {
-      const innerMatch = content.match(tagRe);
-      if (innerMatch) {
-        content = innerMatch[1].trim();
-      } else {
-        break;
-      }
-    }
-    return content;
+  if (chineseMatch) {
+    result.zh = chineseMatch[1].trim();
   }
 
-  result.zh = extractContent(cleaned, 'ZH');
-  result.en = extractContent(cleaned, 'EN');
+  if (englishMatch) {
+    result.en = englishMatch[1].trim();
+  }
 
-  console.log('[parseBilingualResponse] Chinese extracted:', result.zh.substring(0, 100));
-  console.log('[parseBilingualResponse] English extracted:', result.en.substring(0, 100));
+  console.log('[parseBilingualResponse] Chinese:', result.zh.substring(0, 80));
+  console.log('[parseBilingualResponse] English:', result.en.substring(0, 80));
 
-  // 如果提取失败，尝试更宽松的匹配
-  if (!result.zh || !result.en) {
-    console.warn('[parseBilingualResponse] Extract failed, trying loose match');
-    // 直接搜索中文和英文字符
-    const chineseMatch = response.match(/[\u4e00-\u9fa5]{4,}/);
-    const englishMatch = response.match(/[a-zA-Z]{4,}/);
-
-    if (!result.zh && chineseMatch) {
-      // 找到中文字符，尝试提取周围的内容
-      const zhIndex = response.indexOf(chineseMatch[0]);
-      // 往前找 [ZH]，往后找 [/ZH]
-      const zhStart = response.lastIndexOf('[ZH]', zhIndex);
-      const zhEnd = response.indexOf('[/ZH]', zhIndex);
-      if (zhStart !== -1 && zhEnd !== -1) {
-        result.zh = response.substring(zhStart + 5, zhEnd).trim();
-      }
-    }
-
-    if (!result.en && englishMatch) {
-      // 找到英文字符，尝试提取周围的内容
-      const enIndex = response.indexOf(englishMatch[0]);
-      const enStart = response.lastIndexOf('[EN]', enIndex);
-      const enEnd = response.indexOf('[/EN]', enIndex);
-      if (enStart !== -1 && enEnd !== -1) {
-        result.en = response.substring(enStart + 5, enEnd).trim();
-      }
-    }
+  // Fallback: 如果解析失败，尝试旧格式 [ZH]...[/ZH][EN]...[/EN]
+  if (!result.zh && !result.en) {
+    console.warn('[parseBilingualResponse] New format failed, trying old format');
+    const zhMatch = text.match(/\[ZH\]([\s\S]*?)\[\/ZH\]/i);
+    const enMatch = text.match(/\[EN\]([\s\S]*?)\[\/EN\]/i);
+    if (zhMatch) result.zh = zhMatch[1].trim();
+    if (enMatch) result.en = enMatch[1].trim();
   }
 
   // 最终 fallback
   if (!result.zh) {
-    result.zh = response;
+    result.zh = text;
   }
   if (!result.en) {
     result.en = result.zh;
