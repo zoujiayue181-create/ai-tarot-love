@@ -320,7 +320,10 @@ function showDrawnCard(card) {
   const cardImage = document.getElementById('cardImage');
   const cardName = document.getElementById('cardName');
   const drawBtn = document.getElementById('drawBtn');
+  const deckArea = document.querySelector('.deck-area');
 
+  // 隐藏牌堆区域，显示结果区域
+  if (deckArea) deckArea.style.display = 'none';
   if (resultArea) resultArea.style.display = 'flex';
   if (cardImage) cardImage.textContent = card.emoji;
   if (cardName) cardName.textContent = card.name;
@@ -361,8 +364,10 @@ function restartReading() {
   const resultArea = document.getElementById('resultArea');
   const drawBtn = document.getElementById('drawBtn');
   const contentEl = document.getElementById('readingContent');
+  const deckArea = document.querySelector('.deck-area');
 
   if (resultArea) resultArea.style.display = 'none';
+  if (deckArea) deckArea.style.display = '';
   if (drawBtn) drawBtn.style.display = '';
   if (drawBtn) drawBtn.disabled = false;
   if (contentEl) contentEl.textContent = '';
