@@ -257,7 +257,8 @@
 /* ---- Responsive ---- */
 @media (max-width: 600px) {
   .question-grid { grid-template-columns: 1fr; }
-  .step-title { font-size: var(--font-size-2xl); }
+  .step-title { font-size: var(--font-size-2xl); text-align: center; }
+  .step-subtitle { text-align: center; }
 
   /* 移动端紧凑布局 */
   .step-section {
