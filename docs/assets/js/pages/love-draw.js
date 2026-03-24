@@ -212,8 +212,10 @@ async function handleDraw() {
   // 显示抽到的牌
   showDrawnCard(drawnCard);
 
+  // 牌面展示 3.5 秒，让用户专注感受
+  await sleep(3500);
+
   // 自动进入解读步骤
-  await sleep(800);
   goToStep(3);
 
   // 请求 AI 解读

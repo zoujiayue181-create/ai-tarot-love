@@ -166,7 +166,8 @@ async function handleDraw() {
 
   // 3 张抽完后自动进入解读
   if (drawnCards.length === 3) {
-    await sleep(1000);
+    // 牌面展示 3.5 秒，让用户专注感受
+    await sleep(3500);
     goToStep(3);
     await requestAIReading();
   }
