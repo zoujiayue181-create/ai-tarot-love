@@ -197,6 +197,7 @@ function updateReadingDisplay() {
 
 async function requestAIReading() {
   const loadingEl = document.getElementById('readingLoading');
+  const subtitleEl = document.getElementById('readingSubtitle');
   const contentEl = document.getElementById('readingContent');
   const summaryEl = document.getElementById('threeCardsSummary');
 
@@ -208,6 +209,10 @@ async function requestAIReading() {
         loadingEl.classList.add('visible');
       });
     });
+  }
+  if (subtitleEl) {
+    subtitleEl.textContent = window.I18N.getI18n('tarot.loading_reading') || '星辰正在解读...';
+    subtitleEl.style.display = 'block';
   }
 
   // 显示三牌摘要
@@ -243,6 +248,7 @@ async function requestAIReading() {
         if (loadingEl) loadingEl.style.display = 'none';
       }, 300);
     }
+    if (subtitleEl) subtitleEl.style.display = 'none';
     if (contentEl) contentEl.textContent = getDisplayReading();
 
   } catch (err) {
@@ -253,6 +259,7 @@ async function requestAIReading() {
         if (loadingEl) loadingEl.style.display = 'none';
       }, 300);
     }
+    if (subtitleEl) subtitleEl.style.display = 'none';
     if (contentEl) {
       contentEl.textContent = `解读暂时无法获取，请稍后重试。\n\n错误：${err.message}`;
       contentEl.style.color = 'var(--color-error)';

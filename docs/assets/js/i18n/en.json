@@ -4,6 +4,7 @@
     "name": "English"
   },
   "nav": {
+    "logo": "Stardust",
     "home": "Home",
     "single_draw": "Single Card",
     "three_card": "Three Card",
@@ -69,7 +70,8 @@
     "all_cards_drawn": "All cards drawn ✨",
     "past": "Past",
     "present": "Present",
-    "future": "Future"
+    "future": "Future",
+    "try_single": "Try Single Card Reading"
   },
   "question_types": {
     "daily_luck": "Today's Love Fortune",

@@ -162,13 +162,14 @@ function getInlineFallback(locale) {
   if (locale === 'zh') {
     return {
       meta: { lang: 'zh', name: '简体中文' },
-      nav: { 
-        home: '首页', 
-        single_draw: '单牌占卜', 
-        three_card: '三牌占卜', 
-        blog: '博客', 
-        login: '登录', 
-        logout: '退出登录' 
+      nav: {
+        logo: '星辰',
+        home: '首页',
+        single_draw: '单牌占卜',
+        three_card: '三牌占卜',
+        blog: '博客',
+        login: '登录',
+        logout: '退出登录'
       },
       home: { 
         hero_title: '你的感情困惑，星辰懂你', 
@@ -241,6 +242,7 @@ function getInlineFallback(locale) {
         past: '过去',
         present: '现在',
         future: '未来',
+        try_single: '体验单牌占卜',
         selectSituation: '选择你的情况',
         startReading: '开始解读',
         reading: '解读中...'
@@ -251,13 +253,14 @@ function getInlineFallback(locale) {
   // English fallback - 完整版本
   return {
     meta: { lang: 'en', name: 'English' },
-    nav: { 
-      home: 'Home', 
-      single_draw: 'Single Card', 
-      three_card: 'Three Card', 
-      blog: 'Blog', 
-      login: 'Login', 
-      logout: 'Logout' 
+    nav: {
+      logo: 'Stardust',
+      home: 'Home',
+      single_draw: 'Single Card',
+      three_card: 'Three Card',
+      blog: 'Blog',
+      login: 'Login',
+      logout: 'Logout'
     },
     home: { 
       hero_title: 'Your Love Questions, Understood by Stardust', 
@@ -324,6 +327,7 @@ function getInlineFallback(locale) {
       past: 'Past',
       present: 'Present',
       future: 'Future',
+      try_single: 'Try Single Card Reading',
       selectSituation: 'Select your situation',
       startReading: 'Start Reading',
       reading: 'Interpreting...'

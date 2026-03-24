@@ -19,12 +19,12 @@
     <div class="container nav__inner">
       <a href="index.html" class="nav__logo">
         <span class="nav__logo-icon">✨</span>
-        <span class="nav__logo-text">星辰</span>
+        <span class="nav__logo-text" data-i18n="nav.logo">星辰</span>
       </a>
       <div class="nav__links">
-        <a href="index.html" class="nav__link">首页</a>
-        <a href="love-draw.html" class="nav__link">单牌占卜</a>
-        <a href="three-card-love.html" class="nav__link nav__link--active">三牌占卜</a>
+        <a href="index.html" class="nav__link" data-i18n="nav.home">首页</a>
+        <a href="love-draw.html" class="nav__link" data-i18n="nav.single_draw">单牌占卜</a>
+        <a href="three-card-love.html" class="nav__link nav__link--active" data-i18n="nav.three_card">三牌占卜</a>
       </div>
       <div class="nav__actions">
         <button class="nav__lang-btn" data-lang-switch="zh">中</button>
@@ -108,13 +108,14 @@
             <div class="ai-reading__typing" id="readingLoading">
               <span></span><span></span><span></span>
             </div>
+            <p class="step-subtitle" id="readingSubtitle" data-i18n="tarot.loading_reading">星辰正在解读...</p>
             <div class="ai-reading__content" id="readingContent"></div>
           </div>
         </div>
 
         <div class="reading-actions">
-          <button class="btn btn-secondary" id="restartBtn">重新占卜</button>
-          <a href="love-draw.html" class="btn btn-ghost">体验单牌占卜</a>
+          <button class="btn btn-secondary" id="restartBtn" data-i18n="restart">重新占卜</button>
+          <a href="love-draw.html" class="btn btn-ghost" data-i18n="three_card.try_single">体验单牌占卜</a>
         </div>
       </section>
 

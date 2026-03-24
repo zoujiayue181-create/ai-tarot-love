@@ -4,6 +4,7 @@
     "name": "简体中文"
   },
   "nav": {
+    "logo": "星辰",
     "home": "首页",
     "single_draw": "单牌占卜",
     "three_card": "三牌占卜",
@@ -69,7 +70,8 @@
     "all_cards_drawn": "三张牌已抽完 ✨",
     "past": "过去",
     "present": "现在",
-    "future": "未来"
+    "future": "未来",
+    "try_single": "体验单牌占卜"
   },
   "question_types": {
     "daily_luck": "今日感情运势",
