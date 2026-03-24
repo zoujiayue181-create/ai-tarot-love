@@ -176,9 +176,10 @@ function getInlineFallback(locale) {
         login: '登录',
         logout: '退出登录'
       },
-      home: { 
-        hero_title: '你的感情困惑，星辰懂你', 
+      home: {
+        hero_title: '你的感情困惑，星辰懂你',
         hero_subtitle: 'AI 塔罗 · 温柔解读 · 情感陪伴',
+        hero_desc: '不是冷冰冰的牌义解读，是真正理解你情感困惑的 AI 塔罗师。暧昧、分手、挽回——每一个场景，都有星辰陪伴。',
         hero_cta: '开始今日占卜', 
         hero_secondary: '了解更多',
         features_title: '星辰能为你做什么',
@@ -267,10 +268,11 @@ function getInlineFallback(locale) {
       login: 'Login',
       logout: 'Logout'
     },
-    home: { 
-      hero_title: 'Your Love Questions, Understood by Stardust', 
-      hero_subtitle: 'AI Tarot · Gentle Guidance · Emotional Companionship',
-      hero_cta: "Start Today's Reading", 
+    home: {
+        hero_title: 'Your Love Questions, Understood by Stardust',
+        hero_subtitle: 'AI Tarot · Gentle Guidance · Emotional Companionship',
+        hero_desc: 'Not cold textbook tarot readings, but an AI companion who truly understands your heart. Crushes, breakups, reconciliation—every scenario has Stardust by your side.',
+        hero_cta: "Start Today's Reading", 
       hero_secondary: 'Learn More',
       features_title: 'What Can Stardust Do For You',
       feature1_title: 'Daily Single Card',
