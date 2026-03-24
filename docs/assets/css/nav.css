@@ -1,0 +1,155 @@
+/* ============================================
+   nav.css — 导航组件样式（供内页使用）
+   ============================================ */
+
+/* ---- 导航容器 ---- */
+.nav {
+  background: linear-gradient(180deg, rgba(26, 15, 46, 0.95) 0%, rgba(26, 15, 46, 0.8) 100%);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-border-light);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+/* ---- Logo ---- */
+.nav__logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  text-decoration: none;
+  transition: transform var(--transition-fast);
+}
+
+.nav__logo:hover {
+  transform: scale(1.02);
+}
+
+.nav__logo-icon {
+  font-size: 1.4rem;
+  filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.5));
+}
+
+.nav__logo-text {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--color-text);
+  background: linear-gradient(135deg, var(--color-text) 0%, var(--color-accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ---- 导航链接组 ---- */
+.nav__links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+/* ---- 单个导航链接 ---- */
+.nav__link {
+  position: relative;
+  padding: var(--space-2) var(--space-4);
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+/* 链接悬停效果 */
+.nav__link:hover {
+  color: var(--color-text);
+  background: rgba(212, 175, 55, 0.1);
+}
+
+/* 当前页面激活状态 */
+.nav__link--active {
+  color: var(--color-accent);
+  background: rgba(212, 175, 55, 0.15);
+}
+
+/* 链接下方指示条 */
+.nav__link--active::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 2px;
+  background: var(--color-accent);
+  border-radius: 1px;
+  box-shadow: 0 0 8px rgba(212, 175, 55, 0.6);
+}
+
+/* ---- 语言切换按钮 ---- */
+.nav__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.nav__lang-btn {
+  padding: var(--space-1) var(--space-3);
+  font-family: var(--font-body);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  letter-spacing: 0.05em;
+}
+
+.nav__lang-btn:hover {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+  background: rgba(212, 175, 55, 0.1);
+}
+
+.nav__lang-btn.active {
+  color: var(--color-bg);
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
+}
+
+/* ---- 移动端适配 ---- */
+@media (max-width: 640px) {
+  .nav__inner {
+    height: 56px;
+  }
+
+  .nav__logo-text {
+    font-size: var(--font-size-base);
+  }
+
+  .nav__link {
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--font-size-xs);
+  }
+
+  .nav__lang-btn {
+    padding: var(--space-1) var(--space-2);
+    font-size: 0.65rem;
+  }
+}
