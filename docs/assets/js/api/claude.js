@@ -87,12 +87,15 @@ Card drawn: ${cardName} (${cardType === 'major' ? 'Major Arcana' : 'Minor Arcana
 
 Please respond as "Stardust" with BILINGUAL output in the following EXACT format:
 
-===CHINESE===
+===== 中文解读 start =====
 {150-200 words warm interpretation in SIMPLIFIED CHINESE, empathy + card meaning + practical advice, tone like chatting with a friend}
-===ENGLISH===
-{150-200 words warm interpretation in English, same content as Chinese version, empathy + card meaning + practical advice, tone like chatting with a friend}
+===== 中文解读 end =====
 
-IMPORTANT: Follow this exact format. Output Chinese content after ===CHINESE=== and English content after ===ENGLISH===. Do not add any other text.`;
+===== English Interpretation start =====
+{150-200 words warm interpretation in English, same content as Chinese version, empathy + card meaning + practical advice, tone like chatting with a friend}
+===== English Interpretation end =====
+
+IMPORTANT: Follow this exact format. Do not add any other text.`;
 
   return callClaude(systemPrompt, userPrompt);
 }
@@ -119,20 +122,23 @@ Three cards:
 
 Please respond as "Stardust" with BILINGUAL output in the following EXACT format:
 
-===CHINESE===
+===== 中文解读 start =====
 【三牌解读】
 【回顾过去】{解读 ${past} 在用户感情中的影响，100-150字中文}
 【面对现在】{解读 ${present} 代表的现状，100-150字中文}
 【指引未来】{解读 ${future} 指向的方向和实用建议，100-150字中文}
 语气温暖如朋友聊天
-===ENGLISH===
+===== 中文解读 end =====
+
+===== English Interpretation start =====
 【Three-Card Reading】
 【Past】{Interpretation of ${past}'s influence on the user's feelings, 100-150 words}
 【Present】{Interpretation of what ${present} represents in the current situation, 100-150 words}
 【Future】{Interpretation of what ${future} points to, with practical advice, 100-150 words}
 Warm tone like chatting with a friend
+===== English Interpretation end =====
 
-IMPORTANT: Follow this exact format. Output Chinese content after ===CHINESE=== and English content after ===ENGLISH===. Do not add any other text.`;
+IMPORTANT: Follow this exact format. Do not add any other text.`;
 
   return callClaude(systemPrompt, userPrompt);
 }
@@ -201,24 +207,36 @@ function parseBilingualResponse(response) {
   // 预处理：移除首尾空白
   let text = response.trim();
 
-  // 新格式: ===CHINESE=== ...content... ===ENGLISH=== ...content...
-  const chineseMatch = text.match(/===CHINESE===\s*([\s\S]*?)\s*===ENGLISH===/i);
-  const englishMatch = text.match(/===ENGLISH===\s*([\s\S]*?)\s*$/i);
+  // 新格式: ===== 中文解读 start ===== ...content... ===== 中文解读 end =====
+  //                  ===== English Interpretation start ===== ...content... ===== English Interpretation end =====
 
-  if (chineseMatch) {
-    result.zh = chineseMatch[1].trim();
+  // 提取中文内容
+  const chineseStart = '===== 中文解读 start =====';
+  const chineseEnd = '===== 中文解读 end =====';
+  const zhStartIdx = text.indexOf(chineseStart);
+  const zhEndIdx = text.indexOf(chineseEnd);
+
+  if (zhStartIdx !== -1 && zhEndIdx !== -1 && zhEndIdx > zhStartIdx + chineseStart.length) {
+    result.zh = text.substring(zhStartIdx + chineseStart.length, zhEndIdx).trim();
   }
 
-  if (englishMatch) {
-    result.en = englishMatch[1].trim();
+  // 提取英文内容
+  const englishStart = '===== English Interpretation start =====';
+  const englishEnd = '===== English Interpretation end =====';
+  const enStartIdx = text.indexOf(englishStart);
+  const enEndIdx = text.indexOf(englishEnd);
+
+  if (enStartIdx !== -1 && enEndIdx !== -1 && enEndIdx > enStartIdx + englishStart.length) {
+    result.en = text.substring(enStartIdx + englishStart.length, enEndIdx).trim();
   }
 
   console.log('[parseBilingualResponse] Chinese:', result.zh.substring(0, 80));
   console.log('[parseBilingualResponse] English:', result.en.substring(0, 80));
 
-  // Fallback: 如果解析失败，尝试旧格式 [ZH]...[/ZH][EN]...[/EN]
+  // Fallback: 如果解析失败
   if (!result.zh && !result.en) {
-    console.warn('[parseBilingualResponse] New format failed, trying old format');
+    console.warn('[parseBilingualResponse] Parse failed, trying other formats');
+    // 尝试 [ZH] 格式
     const zhMatch = text.match(/\[ZH\]([\s\S]*?)\[\/ZH\]/i);
     const enMatch = text.match(/\[EN\]([\s\S]*?)\[\/EN\]/i);
     if (zhMatch) result.zh = zhMatch[1].trim();
