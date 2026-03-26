@@ -258,6 +258,21 @@ async function requestAIReading() {
     // 解析双语内容
     bilingualReading = window.TarotAPI.parseBilingualResponse(response);
 
+    // 保存到云端（如果是登录用户）
+    if (window.HistoryService) {
+      // 三牌存储为 JSON 格式
+      const cardNames = drawnCards.map(c => c.name).join(' / ');
+      const cardTypes = drawnCards.map(c => c.type).join(' / ');
+      window.HistoryService.saveReadingToCloud({
+        cardName: cardNames,
+        cardType: cardTypes,
+        question: SCENE_LABELS[selectedScene],
+        readingZh: bilingualReading.zh,
+        readingEn: bilingualReading.en,
+        readingType: 'three',
+      });
+    }
+
     if (loadingEl) {
       loadingEl.classList.remove('visible');
       setTimeout(() => {

@@ -122,6 +122,20 @@ window.AuthService = {
   },
 
   /**
+   * 检查是否已登录
+   */
+  isLoggedIn() {
+    return supabase?.auth?.session()?.user != null;
+  },
+
+  /**
+   * 获取 Supabase 客户端（供其他服务使用）
+   */
+  getSupabase() {
+    return supabase;
+  },
+
+  /**
    * 监听 Auth 状态变化
    */
   onAuthStateChange(callback) {

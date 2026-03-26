@@ -292,6 +292,18 @@ async function requestAIReading() {
     // 解析双语内容
     bilingualReading = window.TarotAPI.parseBilingualResponse(response);
 
+    // 保存到云端（如果是登录用户）
+    if (window.HistoryService) {
+      window.HistoryService.saveReadingToCloud({
+        cardName: drawnCard.name,
+        cardType: drawnCard.type,
+        question: getQuestionLabel(selectedQuestion),
+        readingZh: bilingualReading.zh,
+        readingEn: bilingualReading.en,
+        readingType: 'single',
+      });
+    }
+
     if (loadingEl) {
       loadingEl.classList.remove('visible');
       setTimeout(() => {
