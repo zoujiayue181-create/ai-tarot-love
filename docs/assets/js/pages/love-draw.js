@@ -226,10 +226,13 @@ async function handleDraw() {
   // 自动进入解读步骤
   goToStep(3);
 
-  // Freemium 检查
-  const freemium = window.FreemiumManager.checkFreemiumLimit();
+  // Freemium 检查（异步，需 await）
+  const freemium = await window.FreemiumManager.checkFreemiumLimit();
   if (!freemium.allowed) {
-    showToast(`今日免费次数已用完（${freemium.remaining}/${window.FreemiumManager.FREEMIUM_LIMIT}）。升级 Premium 解锁无限次占卜`, 'info');
+    const upgradeMsg = freemium.isLoggedIn
+      ? `今日免费次数已用完（${freemium.remaining}/${freemium.limit}）。升级 Premium 解锁无限次占卜`
+      : `今日免费次数已用完。登录账号可获得更多次数，或升级 Premium 解锁无限次占卜`;
+    showToast(upgradeMsg, 'info');
     goToStep(2); // 退回选择页面
     return;
   }
