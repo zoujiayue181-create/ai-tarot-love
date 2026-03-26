@@ -33,8 +33,8 @@ function updateLangButtons() {
 
 function handleLoginClick(e) {
   e.preventDefault();
-  if (window.AuthService?.showLoginModal) {
-    window.AuthService.showLoginModal();
+  if (typeof openAuthModal === 'function') {
+    openAuthModal();
   } else {
     showToast('登录服务加载中，请稍候...', 'info');
   }

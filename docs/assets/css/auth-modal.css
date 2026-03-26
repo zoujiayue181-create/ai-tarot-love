@@ -1,0 +1,327 @@
+/**
+ * auth-modal.css — 注册/登录弹窗样式
+ */
+
+/* ============================================
+   遮罩层
+   ============================================ */
+.auth-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.auth-modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ============================================
+   弹窗主体
+   ============================================ */
+.auth-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.95);
+  width: 90%;
+  max-width: 400px;
+  background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%);
+  border-radius: 20px;
+  padding: 32px 28px;
+  box-shadow:
+    0 25px 50px -12px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  z-index: 1001;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+}
+
+.auth-modal.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* ============================================
+   关闭按钮
+   ============================================ */
+.auth-modal__close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.auth-modal__close:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  transform: rotate(90deg);
+}
+
+/* ============================================
+   标题区域
+   ============================================ */
+.auth-modal__header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.auth-modal__title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 8px 0;
+  font-family: 'Noto Serif SC', serif;
+  letter-spacing: 0.05em;
+}
+
+.auth-modal__subtitle {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
+}
+
+/* ============================================
+   表单
+   ============================================ */
+.auth-modal__form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.auth-modal__field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.auth-modal__label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.02em;
+}
+
+.auth-modal__input {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 1rem;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  outline: none;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.auth-modal__input::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.auth-modal__input:focus {
+  border-color: #a78bfa;
+  background: rgba(167, 139, 250, 0.1);
+  box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.2);
+}
+
+.auth-modal__input.error {
+  border-color: #f87171;
+  background: rgba(248, 113, 113, 0.1);
+}
+
+/* ============================================
+   错误提示
+   ============================================ */
+.auth-modal__error {
+  padding: 12px 14px;
+  background: rgba(248, 113, 113, 0.15);
+  border: 1px solid rgba(248, 113, 113, 0.3);
+  border-radius: 10px;
+  color: #fca5a5;
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+/* ============================================
+   提交按钮
+   ============================================ */
+.auth-modal__submit {
+  position: relative;
+  width: 100%;
+  padding: 15px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 8px;
+  overflow: hidden;
+}
+
+.auth-modal__submit::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.auth-modal__submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(102, 126, 234, 0.4);
+}
+
+.auth-modal__submit:hover:not(:disabled)::before {
+  opacity: 1;
+}
+
+.auth-modal__submit:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.auth-modal__submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* 按钮内加载动画 */
+.auth-modal__spinner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-modal__spinner .spinner {
+  width: 20px;
+  height: 20px;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ============================================
+   底部切换链接
+   ============================================ */
+.auth-modal__footer {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.auth-modal__footer span {
+  margin-right: 4px;
+}
+
+.auth-modal__footer a {
+  color: #a78bfa;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.auth-modal__footer a:hover {
+  color: #c4b5fd;
+  text-decoration: underline;
+}
+
+/* ============================================
+   响应式 — 手机端
+   ============================================ */
+@media (max-width: 480px) {
+  .auth-modal {
+    width: 92%;
+    padding: 28px 20px;
+    border-radius: 16px;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transform: translateY(100%);
+    max-width: none;
+  }
+
+  .auth-modal.active {
+    transform: translateY(0);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .auth-modal-overlay {
+    /* 手机端遮罩稍微透明，让弹窗更突出 */
+  }
+
+  .auth-modal__title {
+    font-size: 1.5rem;
+  }
+
+  .auth-modal__input {
+    padding: 13px 14px;
+    font-size: 16px; /* 防止 iOS 缩放 */
+  }
+
+  .auth-modal__submit {
+    padding: 14px 20px;
+  }
+}
+
+/* ============================================
+   星星装饰动画
+   ============================================ */
+.auth-modal::before,
+.auth-modal::after {
+  content: '✦';
+  position: absolute;
+  font-size: 1.25rem;
+  color: rgba(167, 139, 250, 0.3);
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+.auth-modal::before {
+  top: 20px;
+  left: 20px;
+  animation-delay: 0s;
+}
+
+.auth-modal::after {
+  bottom: 30px;
+  right: 25px;
+  animation-delay: 1.5s;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.1); }
+}
+
+/* ============================================
+   主题切换兼容
+   ============================================ */
+/* 如果未来支持浅色模式，添加对应样式 */

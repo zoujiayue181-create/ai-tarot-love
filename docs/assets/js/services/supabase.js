@@ -22,6 +22,9 @@ function initSupabase() {
   console.log('[Supabase] SDK 加载成功');
   supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+  // 暴露到全局，供 auth-modal.js 使用
+  window.supabase = supabase;
+
   // 监听 Auth 状态变化
   supabase.auth.onAuthStateChange((event, session) => {
     console.log('[Supabase] Auth 状态变化:', event, session);
