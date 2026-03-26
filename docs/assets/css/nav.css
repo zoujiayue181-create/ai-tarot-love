@@ -133,6 +133,13 @@
   box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
 }
 
+/* ---- 桌面端隐藏短版文字 ---- */
+@media (min-width: 641px) {
+  .nav__link--short {
+    display: none;
+  }
+}
+
 /* ---- 移动端适配 ---- */
 @media (max-width: 640px) {
   .nav__inner {
