@@ -1,5 +1,6 @@
 /**
  * auth-modal.js — 注册/登录弹窗模块（支持 i18n）
+ * Version: 2026-03-26-1454
  */
 
 let authModal = null;
@@ -10,8 +11,10 @@ let authMode = 'login'; // 'login' | 'register'
 function t(key, fallback) {
   if (window.I18N && typeof window.I18N.getI18n === 'function') {
     const result = window.I18N.getI18n(key);
+    console.log('[Auth] t(', key, ') =', result, '| fallback:', fallback);
     return result || fallback || key;
   }
+  console.warn('[Auth] I18N not ready, using fallback:', fallback);
   return fallback || key;
 }
 
