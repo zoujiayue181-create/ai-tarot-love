@@ -76,18 +76,29 @@ async function loadLocale(locale, forceReload = false) {
 
 /**
  * 获取基础路径（兼容 GitHub Pages 和自定义域名）
+ * 通过 script 标签的实际 src 来计算
  */
 function getBasePath() {
+  // 优先从 script 标签的 src 反推基础路径
+  const i18nScript = document.querySelector('script[src*="i18n/i18n.js"]');
+  if (i18nScript) {
+    const src = i18nScript.src;
+    // src 格式: {basePath}assets/js/i18n/i18n.js
+    // 我们需要找到 assets 之前的那部分路径
+    const assetsIndex = src.indexOf('/assets/');
+    if (assetsIndex > 0) {
+      return src.substring(0, assetsIndex + 1); // 包含结尾的 /
+    }
+  }
+
+  // 备用方案：基于 URL 路径计算
   const pathname = window.location.pathname;
-  // 计算路径深度
   const segments = pathname.split('/').filter(Boolean);
   const depth = segments.length - 1;
-  
+
   if (depth <= 0) {
-    // 根路径 - GitHub Pages 部署在子目录，需要包含仓库名
-    // 尝试从 script 标签的 src 反推
-    // 备选方案：硬编码仓库名（适合 GitHub Pages）
-    return '/ai-tarot-love/';
+    // 根路径 - 直接返回 /
+    return '/';
   }
   return '../'.repeat(depth);
 }
