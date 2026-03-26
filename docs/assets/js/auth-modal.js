@@ -9,9 +9,23 @@ let authMode = 'login'; // 'login' | 'register'
 // i18n 辅助函数
 function t(key, fallback) {
   if (window.I18N && typeof window.I18N.getI18n === 'function') {
-    return window.I18N.getI18n(key) || fallback || key;
+    const result = window.I18N.getI18n(key);
+    return result || fallback || key;
   }
   return fallback || key;
+}
+
+// 等待 i18n 初始化完成
+async function waitForI18n(timeoutMs = 3000) {
+  const start = Date.now();
+  while (!window.I18N || !window.I18N.getI18n) {
+    if (Date.now() - start > timeoutMs) {
+      console.warn('[Auth] i18n initialization timeout');
+      return false;
+    }
+    await new Promise(r => setTimeout(r, 50));
+  }
+  return true;
 }
 
 function createAuthModal() {
@@ -275,7 +289,9 @@ function setAuthLoading(loading) {
   spinner.style.display = loading ? 'inline-flex' : 'none';
 }
 
-function openAuthModal(mode = 'login') {
+async function openAuthModal(mode = 'login') {
+  // 确保 i18n 已初始化
+  await waitForI18n();
   authMode = mode;
   createAuthModal();
 
