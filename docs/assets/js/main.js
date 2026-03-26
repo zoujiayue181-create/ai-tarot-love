@@ -77,10 +77,9 @@ function bindGlobalEvents() {
 // Firebase Auth 状态监听
 // ============================================
 function checkAuthState() {
-  // Firebase 将在 firebase.js 中初始化并调用此函数
-  // 这里只是预留的占位，实际实现在 services/firebase.js
-  if (window.FirebaseService) {
-    window.FirebaseService.onAuthStateChange(handleAuthChange);
+  // Supabase 将在 supabase.js 中初始化并调用此函数
+  if (window.AuthService) {
+    window.AuthService.onAuthStateChange(handleAuthChange);
   }
 }
 
@@ -226,9 +225,9 @@ function getQueryParam(name) {
  */
 function promptLogin(message) {
   showToast(message || '请先登录后体验完整功能', 'info');
-  // 触发登录弹窗（具体实现由 firebase.js 提供）
-  if (window.FirebaseService?.showLoginModal) {
-    window.FirebaseService.showLoginModal();
+  // 触发登录弹窗（具体实现由 supabase.js 提供）
+  if (window.AuthService?.showLoginModal) {
+    window.AuthService.showLoginModal();
   }
 }
 

@@ -33,11 +33,10 @@ function updateLangButtons() {
 
 function handleLoginClick(e) {
   e.preventDefault();
-  if (window.FirebaseService?.showLoginModal) {
-    window.FirebaseService.showLoginModal();
+  if (window.AuthService?.showLoginModal) {
+    window.AuthService.showLoginModal();
   } else {
-    // 临时提示
-    showToast('Firebase 登录功能即将上线，敬请期待 ✨', 'info');
+    showToast('登录服务加载中，请稍候...', 'info');
   }
 }
 
