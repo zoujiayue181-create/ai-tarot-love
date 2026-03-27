@@ -30,3 +30,7 @@ tmp/
 
 # Firebase（如果下载了服务账号密钥）
 *service-account*.json
+
+.dev.vars*
+!.dev.vars.example
+!.env.example
