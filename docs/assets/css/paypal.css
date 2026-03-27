@@ -1,0 +1,401 @@
+/**
+ * paypal.css — Premium 订阅弹窗样式
+ */
+
+/* 遮罩层 */
+.premium-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.premium-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* 弹窗主体 */
+.premium-modal {
+  background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%);
+  border-radius: 20px;
+  padding: 32px;
+  max-width: 420px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+  box-shadow:
+    0 25px 50px -12px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.premium-overlay.active .premium-modal {
+  transform: translateY(0);
+}
+
+/* 关闭按钮 */
+.premium-modal .close-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+
+.premium-modal .close-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* 标题区 */
+.premium-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.premium-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #f5af19 0%, #f12711 100%);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 16px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+
+.premium-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 8px 0;
+  line-height: 1.3;
+}
+
+.premium-subtitle {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* 功能列表 */
+.premium-features {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.premium-features h4 {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0 0 16px 0;
+  text-align: center;
+}
+
+.feature-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.feature-item:last-child {
+  border-bottom: none;
+}
+
+.feature-item .icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(245, 175, 25, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.feature-item .icon.unlimited {
+  background: rgba(0, 255, 136, 0.15);
+}
+
+.feature-item .icon.storage {
+  background: rgba(147, 112, 219, 0.15);
+}
+
+.feature-item .icon.badge {
+  background: rgba(255, 215, 0, 0.15);
+}
+
+.feature-item .text {
+  flex: 1;
+}
+
+.feature-item .text .label {
+  font-size: 14px;
+  color: #fff;
+  font-weight: 500;
+  display: block;
+}
+
+.feature-item .text .desc {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+  display: block;
+  margin-top: 2px;
+}
+
+/* 价格区 */
+.premium-pricing {
+  text-align: center;
+  margin-bottom: 24px;
+  padding: 20px;
+  background: linear-gradient(135deg, rgba(245, 175, 25, 0.1) 0%, rgba(241, 39, 17, 0.1) 100%);
+  border-radius: 12px;
+  border: 1px solid rgba(245, 175, 25, 0.2);
+}
+
+.price-tag {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 4px;
+}
+
+.price-currency {
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
+}
+
+.price-amount {
+  font-size: 42px;
+  font-weight: 800;
+  color: #f5af19;
+  line-height: 1;
+}
+
+.price-period {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.5);
+  margin-left: 4px;
+}
+
+.price-note {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.4);
+  margin-top: 8px;
+}
+
+/* PayPal 按钮容器 */
+.premium-paypal {
+  margin-bottom: 16px;
+}
+
+.premium-paypal-btn {
+  width: 100%;
+  min-height: 48px;
+  background: linear-gradient(135deg, #f5af19 0%, #f12711 100%);
+  border: none;
+  border-radius: 24px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 24px;
+}
+
+.premium-paypal-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(245, 175, 25, 0.3);
+}
+
+.premium-paypal-btn:active {
+  transform: translateY(0);
+}
+
+.premium-paypal-btn .paypal-icon {
+  font-size: 20px;
+}
+
+/* 登录提示 */
+.premium-login-hint {
+  text-align: center;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  margin-bottom: 16px;
+}
+
+.premium-login-hint p {
+  margin: 0 0 12px 0;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.premium-login-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  color: #fff;
+  padding: 8px 20px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.premium-login-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* 底部说明 */
+.premium-footer {
+  text-align: center;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.premium-footer p {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.3);
+  margin: 0;
+  line-height: 1.6;
+}
+
+.premium-footer a {
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+}
+
+.premium-footer a:hover {
+  color: #fff;
+}
+
+/* 加载状态 */
+.premium-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.premium-loading .spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top-color: #f5af19;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.premium-loading p {
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 16px;
+  font-size: 14px;
+}
+
+/* 成功状态 */
+.premium-success {
+  text-align: center;
+  padding: 20px;
+}
+
+.premium-success .check-icon {
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, #00c853 0%, #00e676 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  font-size: 32px;
+  animation: scaleIn 0.3s ease;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.premium-success h3 {
+  font-size: 22px;
+  color: #fff;
+  margin: 0 0 8px 0;
+}
+
+.premium-success p {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 14px;
+  margin: 0;
+}
+
+/* 移动端适配 */
+@media (max-width: 480px) {
+  .premium-modal {
+    padding: 24px 20px;
+    border-radius: 16px;
+    margin: 16px;
+  }
+
+  .premium-title {
+    font-size: 22px;
+  }
+
+  .price-amount {
+    font-size: 36px;
+  }
+}

@@ -79,8 +79,18 @@ async function getLoggedInUsageFromCloud() {
  * @returns {{allowed: boolean, remaining: number, isPremium: boolean, isLoggedIn: boolean}}
  */
 async function checkFreemiumLimit() {
-  // Premium 用户不受限制
-  if (APP_STATE.plan === 'premium') {
+  // 先检查 Premium 状态（通过 PayPalService）
+  if (window.PayPalService) {
+    const premiumStatus = await window.PayPalService.checkPremiumStatus();
+    if (premiumStatus.isPremium) {
+      // 更新 APP_STATE
+      if (window.APP_STATE) {
+        window.APP_STATE.plan = 'premium';
+      }
+      return { allowed: true, remaining: Infinity, isPremium: true, isLoggedIn: true };
+    }
+  } else if (APP_STATE.plan === 'premium') {
+    // 兜底：APP_STATE 标记了 Premium
     return { allowed: true, remaining: Infinity, isPremium: true, isLoggedIn: true };
   }
 
