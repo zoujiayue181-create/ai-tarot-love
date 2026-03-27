@@ -74,7 +74,7 @@ export default {
 
     try {
       const body = await request.json();
-      const { system, message, max_tokens = 500, temperature = 0.8, model = 'glm-4-flash' } = body;
+      const { system, message, max_tokens = 500, temperature = 0.8, model = 'glm-4.6v-flashx' } = body;
 
       // 构建消息格式（OpenAI 兼容）
       const messages = [];
