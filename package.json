@@ -5,11 +5,19 @@
   "scripts": {
     "dev": "echo '静态站点，直接用任意 HTTP 服务器' && exit 1",
     "lint": "echo '前端静态项目，无需构建'",
-    "test": "echo '请用浏览器测试：docs/index.html'"
+    "test": "echo '请用浏览器测试：docs/index.html'",
+    "deploy": "wrangler deploy",
+    "preview": "wrangler dev"
   },
-  "keywords": ["tarot", "ai", "love", "claude"],
+  "keywords": [
+    "tarot",
+    "ai",
+    "love",
+    "claude"
+  ],
   "author": "",
   "license": "MIT",
-  "devDependencies": {},
-  "dependencies": {}
+  "devDependencies": {
+    "wrangler": "^4.77.0"
+  }
 }
