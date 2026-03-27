@@ -44,7 +44,7 @@ function saveLocalFreemiumData(data) {
  * 获取登录用户的今日使用次数（从 Supabase 查询）
  */
 async function getLoggedInUsageFromCloud() {
-  if (!window.AuthService?.isLoggedIn()) {
+  if (!await window.AuthService?.isLoggedIn()) {
     return 0;
   }
 
@@ -94,7 +94,7 @@ async function checkFreemiumLimit() {
     return { allowed: true, remaining: Infinity, isPremium: true, isLoggedIn: true };
   }
 
-  const isLoggedIn = window.AuthService?.isLoggedIn() ?? false;
+  const isLoggedIn = await window.AuthService?.isLoggedIn() ?? false;
 
   if (isLoggedIn) {
     // 登录用户：从 Supabase 查询今日次数
@@ -142,7 +142,7 @@ async function recordFreemiumUsage() {
     return;
   }
 
-  const isLoggedIn = window.AuthService?.isLoggedIn() ?? false;
+  const isLoggedIn = await window.AuthService?.isLoggedIn() ?? false;
 
   if (isLoggedIn) {
     // 登录用户的次数记录在 Supabase 的 reading_history 表里

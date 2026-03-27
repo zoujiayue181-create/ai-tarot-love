@@ -115,17 +115,29 @@ window.AuthService = {
   },
 
   /**
-   * 获取当前用户
+   * 获取当前用户（异步）
    */
-  getCurrentUser() {
-    return supabase?.auth?.getUser?.() ?? null;
+  async getCurrentUser() {
+    if (!supabase) return null;
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      return user;
+    } catch (e) {
+      return null;
+    }
   },
 
   /**
-   * 检查是否已登录
+   * 检查是否已登录（异步）
    */
-  isLoggedIn() {
-    return supabase?.auth?.session()?.user != null;
+  async isLoggedIn() {
+    if (!supabase) return false;
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      return user != null;
+    } catch (e) {
+      return false;
+    }
   },
 
   /**

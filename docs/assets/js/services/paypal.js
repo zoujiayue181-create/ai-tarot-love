@@ -38,7 +38,7 @@ const PAYPAL_CONFIG = {
 
   // PayPal SDK URL
   const sdkUrl = environment === 'sandbox'
-    ? `https://www.paypal.com/sdk/js?client-id=${clientId}&currency=USD&intent=subscription`
+    ? `https://www.sandbox.paypal.com/sdk/js?client-id=${clientId}&currency=USD&intent=subscription`
     : `https://www.paypal.com/sdk/js?client-id=${clientId}&currency=USD&intent=subscription`;
 
   const script = document.createElement('script');
@@ -57,7 +57,7 @@ async function checkPremiumStatus() {
   const PREMIUM_KEY = 'tarot-premium-status';
 
   // 1. 如果是登录用户，从 Supabase 检查
-  if (window.AuthService?.isLoggedIn()) {
+  if (await window.AuthService?.isLoggedIn()) {
     try {
       const { supabase } = window.AuthService.getSupabase();
       const user = (await supabase.auth.getUser()).data.user;
@@ -126,7 +126,7 @@ async function activatePremium(subscriptionId, expiryDate) {
   localStorage.setItem(PREMIUM_KEY, JSON.stringify(premiumData));
 
   // 如果是登录用户，同步到 Supabase
-  if (window.AuthService?.isLoggedIn()) {
+  if (await window.AuthService?.isLoggedIn()) {
     try {
       const { supabase } = window.AuthService.getSupabase();
       const user = (await supabase.auth.getUser()).data.user;
