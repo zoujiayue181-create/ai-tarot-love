@@ -173,7 +173,7 @@ function renderPayPalSubscribeButton() {
       // 在 PayPal Dashboard → Subscriptions → Plans 创建
       // Sandbox 格式: P-XXXXXXXXXXXXXXXXXXXXXXX
       // Live 格式: 实际的 Plan ID
-      const PLAN_ID = 'P-MODEL-PLAN-ID-HERE'; // ⚠️ 替换这里！
+      const PLAN_ID = 'P-54979773S1761733KNHC7HGY'; // Sandbox Plan ID
 
       return actions.subscription.create({
         plan_id: PLAN_ID,

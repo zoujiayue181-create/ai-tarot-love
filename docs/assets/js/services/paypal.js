@@ -12,7 +12,7 @@
 
 const PAYPAL_CONFIG = {
   // ⚠️ 替换为你的 PayPal Client ID
-  clientId: 'AYXmxKNVYkv_bEbA6VTFwmJqT4KR6X8Z4U3QCRY_8U7QkZvN5qLQjH3PiN9K2L5M1R6T8W0X2Y4Z', // 示例，请替换！
+  clientId: 'Ac6DaIX5tv4oqV32ubnV7njlK5BuKFglZc4B8a3NsUQmlFfIbVevW-TcZwEK-8yHmP4d2DetCk_AajWz', // Sandbox Client ID
 
   // 环境：'sandbox' | 'live'
   environment: 'sandbox',
@@ -21,6 +21,7 @@ const PAYPAL_CONFIG = {
   subscription: {
     // Premium 订阅 - $4.99/月
     premium: {
+      planId: 'P-54979773S1761733KNHC7HGY', // Sandbox Plan ID
       price: '$4.99',
       priceCNY: '¥35', // 备用
       interval: 'month',
@@ -194,7 +195,7 @@ function renderPayPalButton(containerId, onSuccess, onError) {
           // ⚠️ 注意：这里的 Plan ID 需要在 PayPal Dashboard 创建
           // 格式：P-XXXXXXXXXXXXXXXX（Sandbox）或实际 Plan ID
           return actions.subscription.create({
-            plan_id: 'P-MODEL-XXXXXXXXXXXXXXXX', // ⚠️ 替换为你的 PayPal Plan ID
+            plan_id: 'P-54979773S1761733KNHC7HGY', // Sandbox Plan ID
             application_context: {
               brand_name: '星辰塔罗',
               shipping_preference: 'NO_SHIPPING'
